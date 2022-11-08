@@ -26,8 +26,9 @@ export default function Header() {
       {allowUpdate && <UpdateNotice />}
       <header className={classNames(styles.header, 'row')}>
         <div className={styles.title}>
-          <Icon icon={<Logo />} size="large" className={styles.logo} />
-          <Link href={isSharePage ? HOMEPAGE_URL : '/'}>umami</Link>
+          <Link href={isSharePage ? HOMEPAGE_URL : '/'}>
+            <Icon icon={<Logo />} size="xlarge" className={styles.logo} />
+          </Link>
         </div>
         <HamburgerButton />
         {user && (

@@ -32,6 +32,10 @@ export default async (req, res) => {
       if (!account) {
         return serverError(res, 'Account does not exist.');
       }
+
+      if (account.isAdmin) {
+        return serverError(res, 'Not authorized !!!!');
+      }
     }
 
     const website = await getWebsite({ websiteUuid });

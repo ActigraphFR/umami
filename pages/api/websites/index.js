@@ -39,6 +39,10 @@ export default async (req, res) => {
       return unauthorized(res);
     }
 
+    if (!account.isAdmin) {
+      return unauthorized(res);
+    }
+
     const websiteUuid = uuid();
     const shareId = enableShareUrl ? getRandomChars(8) : null;
     const website = await createWebsite(website_owner, { websiteUuid, name, domain, shareId });

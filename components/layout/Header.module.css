@@ -16,6 +16,10 @@
 .logo {
   margin-right: 12px;
 }
+.logo svg {
+  width: 192px;
+  margin-top: 10px;
+}
 
 .links {
   flex: 2;

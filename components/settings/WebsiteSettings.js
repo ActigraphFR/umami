@@ -171,9 +171,11 @@ export default function WebsiteSettings() {
         />
       }
     >
-      <Button icon={<Plus />} size="medium" onClick={() => setAddWebsite(true)}>
-        <FormattedMessage id="label.add-website" defaultMessage="Add website" />
-      </Button>
+      {user.isAdmin ? (
+        <Button icon={<Plus />} size="medium" onClick={() => setAddWebsite(true)}>
+          <FormattedMessage id="label.add-website" defaultMessage="Add website" />
+        </Button>
+      ) : null}
     </EmptyPlaceholder>
   );
 
@@ -183,9 +185,11 @@ export default function WebsiteSettings() {
         <div>
           <FormattedMessage id="label.websites" defaultMessage="Websites" />
         </div>
-        <Button icon={<Plus />} size="small" onClick={() => setAddWebsite(true)}>
-          <FormattedMessage id="label.add-website" defaultMessage="Add website" />
-        </Button>
+        {user.isAdmin ? (
+          <Button icon={<Plus />} size="small" onClick={() => setAddWebsite(true)}>
+            <FormattedMessage id="label.add-website" defaultMessage="Add website" />
+          </Button>
+        ) : null}
       </PageHeader>
       <Table columns={user.isAdmin ? adminColumns : columns} rows={data} empty={empty} />
       {editWebsite && (

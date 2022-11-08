@@ -7,6 +7,10 @@
   margin: 30px 0;
 }
 
+.logo svg {
+  width: 96px;
+  margin-top: 10px;
+}
 .version {
   text-align: right;
   padding-right: 10px;
