@@ -13,7 +13,6 @@ import styles from './WebsiteHeader.module.css';
 export default function WebsiteHeader({ websiteId, title, domain, showLink = false }) {
   const header = showLink ? (
     <>
-      <Favicon domain={domain} />
       <Link
         className={styles.titleLink}
         href="/websites/[...id]"
@@ -24,7 +23,6 @@ export default function WebsiteHeader({ websiteId, title, domain, showLink = fal
     </>
   ) : (
     <>
-      <Favicon domain={domain} />
       <OverflowText tooltipId={`${websiteId}-title`}>{title}</OverflowText>
     </>
   );
@@ -51,6 +49,12 @@ export default function WebsiteHeader({ websiteId, title, domain, showLink = fal
             </Link>
           )}
         </ButtonLayout>
+      </div>
+      <div className={classNames(styles.activeLink, 'col-12 col-lg-4 order-4 order-lg-4')}>
+        <Link target={'_blank'} href={'https://' + domain}>
+          <Favicon domain={domain} />
+          <OverflowText tooltipId={domain}>{domain}</OverflowText>
+        </Link>
       </div>
     </PageHeader>
   );

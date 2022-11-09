@@ -21,6 +21,10 @@
   justify-content: center;
 }
 
+.activeLink {
+  font-size: 0.8em;
+}
+
 @media only screen and (max-width: 992px) {
   .active {
     justify-content: flex-start;
