@@ -14,12 +14,12 @@ export default function Footer() {
     <footer className={classNames(styles.footer, 'row')}>
       <div className="col-12 col-md-4" />
       <div className="col-12 col-md-4">
-        <Link href={HOMEPAGE_URL}>
+        /*<Link href={HOMEPAGE_URL}>*/
           <Icon icon={<Logo />} size="large" className={styles.logo} />
-        </Link>
+        /*</Link>*/
       </div>
       <div className={classNames(styles.version, 'col-12 col-md-4')}>
-        /$<Link href={REPO_URL}>{`v${CURRENT_VERSION}`}</Link>*/
+        /*<Link href={REPO_URL}>{`v${CURRENT_VERSION}`}</Link>*/
         <p>Réalisation Actigraph</p>
       </div>
       {!pathname.includes('/share/') && <Script src={`/telemetry.js`} />}
