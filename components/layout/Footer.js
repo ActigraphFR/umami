@@ -3,7 +3,7 @@ import Script from 'next/script';
 import classNames from 'classnames';
 import Link from 'components/common/Link';
 import styles from './Footer.module.css';
-import { CURRENT_VERSION, HOMEPAGE_URL, REPO_URL } from 'lib/constants';
+import { CURRENT_VERSION } from 'lib/constants';
 import Icon from '../common/Icon';
 import Logo from '../../assets/logo.svg';
 
@@ -14,13 +14,13 @@ export default function Footer() {
     <footer className={classNames(styles.footer, 'row')}>
       <div className="col-12 col-md-4" />
       <div className="col-12 col-md-4">
-        /*<Link href={HOMEPAGE_URL}>*/
+        <Link href="https://www.actigraph.com">
           <Icon icon={<Logo />} size="large" className={styles.logo} />
-        /*</Link>*/
+        </Link>
       </div>
       <div className={classNames(styles.version, 'col-12 col-md-4')}>
-        /*<Link href={REPO_URL}>{`v${CURRENT_VERSION}`}</Link>*/
-        <Link href="https://www.actigraph.com">Actigraph</Link>
+        <Link href="#">{`v${CURRENT_VERSION}`}</Link>
+        <Link href="https://www.actigraph.com">&nbsp;Actigraph</Link>
       </div>
       {!pathname.includes('/share/') && <Script src={`/telemetry.js`} />}
     </footer>
