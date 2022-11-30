@@ -26,7 +26,7 @@ export default function Header() {
       {allowUpdate && <UpdateNotice />}
       <header className={classNames(styles.header, 'row')}>
         <div className={styles.title}>
-          <Link href={isSharePage ? HOMEPAGE_URL : '/'}>
+          <Link href='https://www.actigraph.com'>
             <Icon icon={<Logo />} size="xlarge" className={styles.logo} />
           </Link>
         </div>
