@@ -20,7 +20,7 @@ export default function Footer() {
       </div>
       <div className={classNames(styles.version, 'col-12 col-md-4')}>
         /*<Link href={REPO_URL}>{`v${CURRENT_VERSION}`}</Link>*/
-        <p>Réalisation Actigraph</p>
+        <Link href="https://www.actigraph.com">Actigraph</Link>
       </div>
       {!pathname.includes('/share/') && <Script src={`/telemetry.js`} />}
     </footer>
