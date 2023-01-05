@@ -6,9 +6,7 @@ import Icon from 'components/common/Icon';
 import LanguageButton from 'components/settings/LanguageButton';
 import ThemeButton from 'components/settings/ThemeButton';
 import HamburgerButton from 'components/common/HamburgerButton';
-import UpdateNotice from 'components/common/UpdateNotice';
 import UserButton from 'components/settings/UserButton';
-import { HOMEPAGE_URL } from 'lib/constants';
 import useConfig from 'hooks/useConfig';
 import useUser from 'hooks/useUser';
 import Logo from 'assets/logo.svg';
@@ -23,10 +21,10 @@ export default function Header() {
 
   return (
     <>
-      {allowUpdate && <UpdateNotice />}
+      {allowUpdate}
       <header className={classNames(styles.header, 'row')}>
         <div className={styles.title}>
-          <Link href='https://www.actigraph.com'>
+          <Link href="https://www.actigraph.com">
             <Icon icon={<Logo />} size="xlarge" className={styles.logo} />
           </Link>
         </div>

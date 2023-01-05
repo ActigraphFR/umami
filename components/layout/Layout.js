@@ -4,13 +4,13 @@ import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
 import useLocale from 'hooks/useLocale';
 
-export default function Layout({ title, children, header = true, footer = true }) {
+export default function Layout({ children, header = true, footer = true }) {
   const { dir } = useLocale();
 
   return (
     <>
       <Head>
-        <title>umami{title && ` - ${title}`}</title>
+        <title>ActiSTAT</title>
       </Head>
 
       {header && <Header />}
