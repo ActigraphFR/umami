@@ -9,6 +9,7 @@ function Link({ className, icon, children, size, iconRight, onClick, ...props })
   return (
     <NextLink {...props}>
       <a
+        target={props.blank}
         className={classNames(styles.link, className, {
           [styles.large]: size === 'large',
           [styles.small]: size === 'small',

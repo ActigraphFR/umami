@@ -51,7 +51,7 @@ export default function WebsiteHeader({ websiteId, title, domain, showLink = fal
         </ButtonLayout>
       </div>
       <div className={classNames(styles.activeLink, 'col-12 col-lg-4 order-4 order-lg-4')}>
-        <Link target={'_blank'} href={'https://' + domain}>
+        <Link blank={'_blank'} href={'https://' + domain}>
           <Favicon domain={domain} />
           <OverflowText tooltipId={domain}>{domain}</OverflowText>
         </Link>
