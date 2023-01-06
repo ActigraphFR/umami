@@ -40,6 +40,8 @@ export default async (req, res) => {
     const blocked = ips.find(ip => {
       if (ip === clientIp) return true;
 
+      // TODO BDD/JSON to store blocked IPs by website
+
       // CIDR notation
       if (ip.indexOf('/') > 0) {
         const addr = ipaddr.parse(clientIp);
