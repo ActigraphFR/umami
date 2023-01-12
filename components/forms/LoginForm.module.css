@@ -20,4 +20,9 @@
 
 .header h1 {
   margin: 12px 0;
+  display: none;
+}
+
+.header svg {
+  width: 200px !important;
 }
