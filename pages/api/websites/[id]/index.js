@@ -33,7 +33,7 @@ export default async (req, res) => {
         return serverError(res, 'Account does not exist.');
       }
 
-      if (account.isAdmin) {
+      if (!account.isAdmin) {
         return serverError(res, 'Not authorized !!!!');
       }
     }
