@@ -1,16 +1,29 @@
 .header {
   display: flex;
   align-items: center;
-  min-height: 100px;
   width: 100%;
+  padding: 30px 30px 0 30px;
 }
 
 .title {
-  flex: 1;
-  font-size: var(--font-size-large);
   display: flex;
+  flex-direction: row;
   align-items: center;
+
+  /* MERGE V2 */
+  gap: 10px;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--font-color100) !important;
+
   line-height: 1.4;
+}
+
+.icon {
+  width: auto;
+}
+.icon svg {
+  width: 100%;
 }
 
 .logo {
@@ -35,10 +48,10 @@
 }
 
 .buttons {
-  flex: 1;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row;
   align-items: center;
+  justify-content: flex-end;
 }
 
 @media only screen and (max-width: 992px) {

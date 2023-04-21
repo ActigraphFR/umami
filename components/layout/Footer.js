@@ -1,28 +1,31 @@
-import { useRouter } from 'next/router';
-import Script from 'next/script';
-import classNames from 'classnames';
-import Link from 'components/common/Link';
+import { Row, Column } from 'react-basics';
+import { FormattedMessage } from 'react-intl';
+import { CURRENT_VERSION, HOMEPAGE_URL } from 'lib/constants';
+import { labels } from 'components/messages';
 import styles from './Footer.module.css';
-import { CURRENT_VERSION } from 'lib/constants';
-import Icon from '../common/Icon';
-import Logo from '../../assets/logo.svg';
 
 export default function Footer() {
-  const { pathname } = useRouter();
-
   return (
-    <footer className={classNames(styles.footer, 'row')}>
-      <div className="col-12 col-md-4" />
-      <div className="col-12 col-md-4">
-        <Link href="https://www.actigraph.com">
-          <Icon icon={<Logo />} size="large" className={styles.logo} />
-        </Link>
-      </div>
-      <div className={classNames(styles.version, 'col-12 col-md-4')}>
-        <Link href="#">{`v${CURRENT_VERSION}`}</Link>
-        <Link href="https://www.actigraph.com">&nbsp;Actigraph</Link>
-      </div>
-      {!pathname.includes('/share/') && <Script src={`/telemetry.js`} />}
+    <footer className={styles.footer}>
+      <Row>
+        <Column defaultSize={10} lg={10} xl={10}>
+          <div>
+            <FormattedMessage
+              {...labels.poweredBy}
+              values={{
+                name: (
+                  <a href={HOMEPAGE_URL}>
+                    <b>ActiSTAT</b>
+                  </a>
+                ),
+              }}
+            />
+          </div>
+        </Column>
+        <Column className={styles.version} defaultSize={2} lg={2} xl={2}>
+          <p>{`v${CURRENT_VERSION}`}</p>
+        </Column>
+      </Row>
     </footer>
   );
 }
