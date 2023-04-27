@@ -4,16 +4,21 @@ import useCountryNames from 'hooks/useCountryNames';
 import useLocale from 'hooks/useLocale';
 import useMessages from 'hooks/useMessages';
 
-export default function CountriesTable({ websiteId, ...props }) {
+export function CountriesTable({ websiteId, ...props }) {
   const { locale } = useLocale();
   const countryNames = useCountryNames(locale);
   const { formatMessage, labels } = useMessages();
 
   function renderLink({ x: code }) {
     return (
-      <div className={locale}>
-        <FilterLink id="country" value={countryNames[code] && code} label={countryNames[code]} />
-      </div>
+      <FilterLink
+        id="country"
+        className={locale}
+        value={countryNames[code] && code}
+        label={countryNames[code]}
+      >
+        <img src={`/images/flags/${code?.toLowerCase() || 'xx'}.png`} alt={code} />
+      </FilterLink>
     );
   }
 
@@ -28,3 +33,5 @@ export default function CountriesTable({ websiteId, ...props }) {
     />
   );
 }
+
+export default CountriesTable;

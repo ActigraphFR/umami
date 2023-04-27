@@ -6,7 +6,7 @@ import useMessages from 'hooks/useMessages';
 import useConfig from 'hooks/useConfig';
 import styles from './SettingsLayout.module.css';
 
-export default function SettingsLayout({ children }) {
+export function SettingsLayout({ children }) {
   const { user } = useUser();
   const { pathname } = useRouter();
   const { formatMessage, labels } = useMessages();
@@ -34,3 +34,5 @@ export default function SettingsLayout({ children }) {
     </Row>
   );
 }
+
+export default SettingsLayout;

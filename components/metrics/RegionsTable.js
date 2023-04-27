@@ -3,19 +3,25 @@ import { emptyFilter } from 'lib/filters';
 import FilterLink from 'components/common/FilterLink';
 import useLocale from 'hooks/useLocale';
 import useMessages from 'hooks/useMessages';
+import useCountryNames from 'hooks/useCountryNames';
 import regions from 'public/iso-3166-2.json';
 
-export default function RegionsTable({ websiteId, ...props }) {
+export function RegionsTable({ websiteId, ...props }) {
   const { locale } = useLocale();
   const { formatMessage, labels } = useMessages();
+  const countryNames = useCountryNames(locale);
 
-  function renderLink({ x }) {
+  const renderLabel = x => {
+    return regions[x] ? `${regions[x]}, ${countryNames[x.split('-')[0]]}` : x;
+  };
+
+  const renderLink = ({ x: code }) => {
     return (
-      <div className={locale}>
-        <FilterLink id="region" value={x} label={regions[x] || x} />
-      </div>
+      <FilterLink id="region" className={locale} value={code} label={renderLabel(code)}>
+        <img src={`/images/flags/${code?.split('-')?.[0]?.toLowerCase() || 'xx'}.png`} alt={code} />
+      </FilterLink>
     );
-  }
+  };
 
   return (
     <MetricsTable
@@ -29,3 +35,5 @@ export default function RegionsTable({ websiteId, ...props }) {
     />
   );
 }
+
+export default RegionsTable;

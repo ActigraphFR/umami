@@ -4,10 +4,11 @@ import { useRouter } from 'next/router';
 import NavBar from 'components/layout/NavBar';
 import useRequireLogin from 'hooks/useRequireLogin';
 import useConfig from 'hooks/useConfig';
+import { CURRENT_VERSION } from 'lib/constants';
 import styles from './AppLayout.module.css';
 import Footer from './Footer';
 
-export default function AppLayout({ title, children }) {
+export function AppLayout({ title, children }) {
   const { user } = useRequireLogin();
   const config = useConfig();
 
@@ -30,3 +31,5 @@ export default function AppLayout({ title, children }) {
     </div>
   );
 }
+
+export default AppLayout;

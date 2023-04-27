@@ -12,7 +12,6 @@
 
   if (!currentScript) return;
 
-  const delayDuration = 300;
   const _data = 'data-';
   const _false = 'false';
   const attr = currentScript.getAttribute.bind(currentScript);
@@ -29,6 +28,7 @@
   const screen = `${width}x${height}`;
   const eventRegex = /data-umami-event-([\w-_]+)/;
   const eventNameAttribute = _data + 'umami-event';
+  const delayDuration = 300;
 
   /* Helper functions */
 
@@ -112,13 +112,22 @@
     };
 
     const callback = e => {
+      const findATagParent = (rootElem, maxSearchDepth) => {
+        let currentElement = rootElem;
+        for (let i = 0; i < maxSearchDepth; i++) {
+          if (currentElement.tagName === 'A') {
+            return currentElement;
+          }
+          currentElement = currentElement.parentElement;
+          if (!currentElement) {
+            return null;
+          }
+        }
+        return null;
+      };
+
       const el = e.target;
-      const anchor =
-        el.tagName === 'A'
-          ? el
-          : el.parentElement && el.parentElement.tagName === 'A'
-          ? el.parentElement
-          : null;
+      const anchor = el.tagName === 'A' ? el : findATagParent(el, 10);
 
       if (anchor) {
         const { href, target } = anchor;
@@ -148,37 +157,52 @@
 
   const observeTitle = () => {
     const callback = ([entry]) => {
-      title = entry.target.text;
+      title = entry && entry.target ? entry.target.text : undefined;
     };
 
     const observer = new MutationObserver(callback);
 
-    observer.observe(document.querySelector('head > title'), {
-      subtree: true,
-      characterData: true,
-      childList: true,
-    });
+    const node = document.querySelector('head > title');
+
+    if (node) {
+      observer.observe(node, {
+        subtree: true,
+        characterData: true,
+        childList: true,
+      });
+    }
   };
 
   const send = payload => {
     if (trackingDisabled()) return;
-
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    if (typeof cache !== 'undefined') {
+      headers['x-umami-cache'] = cache;
+    }
     return fetch(endpoint, {
       method: 'POST',
       body: JSON.stringify({ type: 'event', payload }),
-      headers: { 'Content-Type': 'application/json', ['x-umami-cache']: cache },
+      headers,
     })
       .then(res => res.text())
       .then(text => (cache = text));
   };
 
-  const track = (name = {}, data = {}) => {
-    if (typeof name === 'string') {
-      return send({ ...getPayload(), ...data, name });
-    } else if (typeof name === 'object') {
-      return send({ ...getPayload(), ...name });
+  const track = (obj, data) => {
+    if (typeof obj === 'string') {
+      return send({
+        ...getPayload(),
+        name: obj,
+        data: typeof data === 'object' ? data : undefined,
+      });
+    } else if (typeof obj === 'object') {
+      return send(obj);
+    } else if (typeof obj === 'function') {
+      return send(obj(getPayload()));
     }
-    return Promise.reject();
+    return send(getPayload());
   };
 
   /* Start */

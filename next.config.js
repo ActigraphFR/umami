@@ -45,22 +45,30 @@ if (process.env.COLLECT_API_ENDPOINT) {
 }
 
 if (process.env.TRACKER_SCRIPT_NAME) {
-  const match = process.env.TRACKER_SCRIPT_NAME?.match(/\/?(\w+)(\.js)?/);
+  const names = process.env.TRACKER_SCRIPT_NAME?.split(',').map(name => name.trim());
 
-  if (match) {
-    rewrites.push({
-      source: `/${match[0]}.js`,
-      destination: '/script.js',
+  if (names) {
+    names.forEach(name => {
+      rewrites.push({
+        source: `/${name.replace(/^\/+/, '')}`,
+        destination: '/script.js',
+      });
     });
   }
 }
 
-const redirects = [];
+const redirects = [
+  {
+    source: '/settings',
+    destination: process.env.CLOUD_MODE ? '/settings/profile' : '/settings/websites',
+    permanent: true,
+  },
+];
 
-if (process.env.CLOUD_MODE) {
+if (process.env.CLOUD_MODE && process.env.DISABLE_LOGIN && process.env.CLOUD_URL) {
   redirects.push({
     source: '/login',
-    destination: CLOUD_URL,
+    destination: process.env.CLOUD_URL,
     permanent: false,
   });
 }

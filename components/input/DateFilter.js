@@ -9,7 +9,7 @@ import useApi from 'hooks/useApi';
 import useDateRange from 'hooks/useDateRange';
 import useMessages from 'hooks/useMessages';
 
-function DateFilter({ websiteId, value, className }) {
+export function DateFilter({ websiteId, value, className }) {
   const { formatMessage, labels } = useMessages();
   const { get } = useApi();
   const [dateRange, setDateRange] = useDateRange(websiteId);
@@ -23,7 +23,7 @@ function DateFilter({ websiteId, value, className }) {
       if (data) {
         setDateRange({ value, ...getDateRangeValues(new Date(data.createdAt), Date.now()) });
       }
-    } else {
+    } else if (value !== 'all') {
       setDateRange(value);
     }
   }
@@ -61,7 +61,7 @@ function DateFilter({ websiteId, value, className }) {
       value: '90day',
     },
     { label: formatMessage(labels.thisYear), value: '1year' },
-    {
+    websiteId && {
       label: formatMessage(labels.allTime),
       value: 'all',
       divider: true,
@@ -71,7 +71,7 @@ function DateFilter({ websiteId, value, className }) {
       value: 'custom',
       divider: true,
     },
-  ];
+  ].filter(n => n);
 
   const renderValue = value => {
     return value === 'custom' ? (

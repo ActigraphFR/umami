@@ -6,24 +6,23 @@ import usePageQuery from 'hooks/usePageQuery';
 import useMessages from 'hooks/useMessages';
 import styles from './FilterLink.module.css';
 
-export default function FilterLink({ id, value, label, externalUrl }) {
+export function FilterLink({ id, value, label, externalUrl, children, className }) {
   const { formatMessage, labels } = useMessages();
   const { resolveUrl, query } = usePageQuery();
   const active = query[id] !== undefined;
   const selected = query[id] === value;
 
   return (
-    <div className={styles.row}>
+    <div
+      className={classNames(styles.row, className, {
+        [styles.inactive]: active && !selected,
+        [styles.active]: active && selected,
+      })}
+    >
+      {children}
       {!value && `(${label || formatMessage(labels.unknown)})`}
       {value && (
-        <Link
-          href={resolveUrl({ [id]: value })}
-          className={classNames(styles.label, {
-            [styles.inactive]: active && !selected,
-            [styles.active]: active && selected,
-          })}
-          replace
-        >
+        <Link href={resolveUrl({ [id]: value })} className={styles.label} replace>
           {safeDecodeURI(label || value)}
         </Link>
       )}
@@ -37,3 +36,5 @@ export default function FilterLink({ id, value, label, externalUrl }) {
     </div>
   );
 }
+
+export default FilterLink;
