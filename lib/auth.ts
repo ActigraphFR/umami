@@ -98,9 +98,11 @@ export async function canViewWebsite({ user, shareToken }: Auth, websiteId: stri
 export async function canCreateWebsite({ user }: Auth) {
   if (user.isAdmin) {
     return true;
+  } else {
+    return false;
   }
 
-  return hasPermission(user.role, PERMISSIONS.websiteCreate);
+  // return hasPermission(user.role, PERMISSIONS.websiteCreate);
 }
 
 export async function canUpdateWebsite({ user }: Auth, websiteId: string) {
