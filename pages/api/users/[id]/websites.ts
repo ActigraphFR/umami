@@ -2,7 +2,7 @@ import { useAuth, useCors } from 'lib/middleware';
 import { NextApiRequestQueryBody } from 'lib/types';
 import { NextApiResponse } from 'next';
 import { methodNotAllowed, ok, unauthorized } from 'next-basics';
-import { getUserWebsites } from 'queries';
+import {getUserWebsites, getWebsites} from 'queries';
 
 export interface WebsitesRequestBody {
   name: string;
@@ -25,7 +25,12 @@ export default async (
       return unauthorized(res);
     }
 
-    const websites = await getUserWebsites(userId);
+    let websites = undefined;
+    if (user.isAdmin) {
+      websites = await getWebsites();
+    } else {
+      websites = await getUserWebsites(userId);
+    }
 
     return ok(res, websites);
   }
