@@ -17,6 +17,18 @@
       "value": "سجل الأحداث"
     }
   ],
+  "label.add": [
+    {
+      "type": 0,
+      "value": "Add"
+    }
+  ],
+  "label.add-description": [
+    {
+      "type": 0,
+      "value": "Add description"
+    }
+  ],
   "label.add-website": [
     {
       "type": 0,
@@ -27,6 +39,12 @@
     {
       "type": 0,
       "value": "مدير"
+    }
+  ],
+  "label.after": [
+    {
+      "type": 0,
+      "value": "After"
     }
   ],
   "label.all": [
@@ -47,6 +65,12 @@
       "value": "تحليلات"
     }
   ],
+  "label.average": [
+    {
+      "type": 0,
+      "value": "Average"
+    }
+  ],
   "label.average-visit-time": [
     {
       "type": 0,
@@ -59,10 +83,28 @@
       "value": "للخلف"
     }
   ],
+  "label.before": [
+    {
+      "type": 0,
+      "value": "Before"
+    }
+  ],
   "label.bounce-rate": [
     {
       "type": 0,
       "value": "معدل الارتداد"
+    }
+  ],
+  "label.breakdown": [
+    {
+      "type": 0,
+      "value": "Breakdown"
+    }
+  ],
+  "label.browser": [
+    {
+      "type": 0,
+      "value": "Browser"
     }
   ],
   "label.browsers": [
@@ -89,6 +131,12 @@
       "value": "المدن"
     }
   ],
+  "label.city": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
   "label.clear-all": [
     {
       "type": 0,
@@ -107,6 +155,12 @@
       "value": "تأكيد كلمة المرور"
     }
   ],
+  "label.contains": [
+    {
+      "type": 0,
+      "value": "Contains"
+    }
+  ],
   "label.continue": [
     {
       "type": 0,
@@ -117,6 +171,24 @@
     {
       "type": 0,
       "value": "الدول"
+    }
+  ],
+  "label.country": [
+    {
+      "type": 0,
+      "value": "Country"
+    }
+  ],
+  "label.create": [
+    {
+      "type": 0,
+      "value": "Create"
+    }
+  ],
+  "label.create-report": [
+    {
+      "type": 0,
+      "value": "Create report"
     }
   ],
   "label.create-team": [
@@ -161,10 +233,22 @@
       "value": "البيانات"
     }
   ],
+  "label.date": [
+    {
+      "type": 0,
+      "value": "Date"
+    }
+  ],
   "label.date-range": [
     {
       "type": 0,
       "value": "فترة مخصصة"
+    }
+  ],
+  "label.day": [
+    {
+      "type": 0,
+      "value": "Day"
     }
   ],
   "label.default-date-range": [
@@ -197,6 +281,12 @@
       "value": "حذف الموقع"
     }
   ],
+  "label.description": [
+    {
+      "type": 0,
+      "value": "Description"
+    }
+  ],
   "label.desktop": [
     {
       "type": 0,
@@ -207,6 +297,12 @@
     {
       "type": 0,
       "value": "تفاصيل"
+    }
+  ],
+  "label.device": [
+    {
+      "type": 0,
+      "value": "Device"
     }
   ],
   "label.devices": [
@@ -221,10 +317,22 @@
       "value": "اخفاء"
     }
   ],
+  "label.does-not-contain": [
+    {
+      "type": 0,
+      "value": "Does not contain"
+    }
+  ],
   "label.domain": [
     {
       "type": 0,
       "value": "النطاق"
+    }
+  ],
+  "label.dropoff": [
+    {
+      "type": 0,
+      "value": "Dropoff"
     }
   ],
   "label.edit": [
@@ -245,10 +353,46 @@
       "value": "تفعيل مشاركة الرابط"
     }
   ],
+  "label.event": [
+    {
+      "type": 0,
+      "value": "Event"
+    }
+  ],
+  "label.event-data": [
+    {
+      "type": 0,
+      "value": "Event data"
+    }
+  ],
   "label.events": [
     {
       "type": 0,
       "value": "الأحداث"
+    }
+  ],
+  "label.false": [
+    {
+      "type": 0,
+      "value": "False"
+    }
+  ],
+  "label.field": [
+    {
+      "type": 0,
+      "value": "Field"
+    }
+  ],
+  "label.fields": [
+    {
+      "type": 0,
+      "value": "Fields"
+    }
+  ],
+  "label.filter": [
+    {
+      "type": 0,
+      "value": "Filter"
     }
   ],
   "label.filter-combined": [
@@ -261,6 +405,72 @@
     {
       "type": 0,
       "value": "مفصلة"
+    }
+  ],
+  "label.filters": [
+    {
+      "type": 0,
+      "value": "Filters"
+    }
+  ],
+  "label.funnel": [
+    {
+      "type": 0,
+      "value": "Funnel"
+    }
+  ],
+  "label.funnel-description": [
+    {
+      "type": 0,
+      "value": "Understand the conversion and drop-off rate of users."
+    }
+  ],
+  "label.greater-than": [
+    {
+      "type": 0,
+      "value": "Greater than"
+    }
+  ],
+  "label.greater-than-equals": [
+    {
+      "type": 0,
+      "value": "Greater than or equals"
+    }
+  ],
+  "label.insights": [
+    {
+      "type": 0,
+      "value": "Insights"
+    }
+  ],
+  "label.insights-description": [
+    {
+      "type": 0,
+      "value": "Dive deeper into your data by using segments and filters."
+    }
+  ],
+  "label.is": [
+    {
+      "type": 0,
+      "value": "Is"
+    }
+  ],
+  "label.is-not": [
+    {
+      "type": 0,
+      "value": "Is not"
+    }
+  ],
+  "label.is-not-set": [
+    {
+      "type": 0,
+      "value": "Is not set"
+    }
+  ],
+  "label.is-set": [
+    {
+      "type": 0,
+      "value": "Is set"
     }
   ],
   "label.join": [
@@ -333,6 +543,18 @@
       "value": "مغادرة المجموعة"
     }
   ],
+  "label.less-than": [
+    {
+      "type": 0,
+      "value": "Less than"
+    }
+  ],
+  "label.less-than-equals": [
+    {
+      "type": 0,
+      "value": "Less than or equals"
+    }
+  ],
   "label.login": [
     {
       "type": 0,
@@ -345,10 +567,22 @@
       "value": "تسجيل الخروج"
     }
   ],
+  "label.max": [
+    {
+      "type": 0,
+      "value": "Max"
+    }
+  ],
   "label.members": [
     {
       "type": 0,
       "value": "الأعضاء"
+    }
+  ],
+  "label.min": [
+    {
+      "type": 0,
+      "value": "Min"
     }
   ],
   "label.mobile": [
@@ -361,6 +595,12 @@
     {
       "type": 0,
       "value": "المزيد"
+    }
+  ],
+  "label.my-websites": [
+    {
+      "type": 0,
+      "value": "My websites"
     }
   ],
   "label.name": [
@@ -381,10 +621,16 @@
       "value": "غير معرف"
     }
   ],
-  "label.operating-systems": [
+  "label.os": [
     {
       "type": 0,
-      "value": "نظام التشغيل"
+      "value": "OS"
+    }
+  ],
+  "label.overview": [
+    {
+      "type": 0,
+      "value": "Overview"
     }
   ],
   "label.owner": [
@@ -393,10 +639,34 @@
       "value": "المالك"
     }
   ],
+  "label.page-of": [
+    {
+      "type": 0,
+      "value": "Page "
+    },
+    {
+      "type": 1,
+      "value": "current"
+    },
+    {
+      "type": 0,
+      "value": " of "
+    },
+    {
+      "type": 1,
+      "value": "total"
+    }
+  ],
   "label.page-views": [
     {
       "type": 0,
       "value": "مشاهدات الصفحة"
+    }
+  ],
+  "label.pageTitle": [
+    {
+      "type": 0,
+      "value": "Page title"
     }
   ],
   "label.pages": [
@@ -433,6 +703,12 @@
       "value": "استعلامات"
     }
   ],
+  "label.query": [
+    {
+      "type": 0,
+      "value": "Query"
+    }
+  ],
   "label.query-parameters": [
     {
       "type": 0,
@@ -443,6 +719,12 @@
     {
       "type": 0,
       "value": "الوقت الفعلي"
+    }
+  ],
+  "label.referrer": [
+    {
+      "type": 0,
+      "value": "Referrer"
     }
   ],
   "label.referrers": [
@@ -463,6 +745,12 @@
       "value": "اعادة انشاء"
     }
   ],
+  "label.region": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
   "label.regions": [
     {
       "type": 0,
@@ -473,6 +761,12 @@
     {
       "type": 0,
       "value": "إزالة"
+    }
+  ],
+  "label.reports": [
+    {
+      "type": 0,
+      "value": "Reports"
     }
   ],
   "label.required": [
@@ -493,10 +787,28 @@
       "value": "اعادة تعيين الإحصائيات"
     }
   ],
+  "label.retention": [
+    {
+      "type": 0,
+      "value": "Retention"
+    }
+  ],
+  "label.retention-description": [
+    {
+      "type": 0,
+      "value": "Measure your website stickiness by tracking how often users return."
+    }
+  ],
   "label.role": [
     {
       "type": 0,
       "value": "الصلاحية"
+    }
+  ],
+  "label.run-query": [
+    {
+      "type": 0,
+      "value": "Run query"
     }
   ],
   "label.save": [
@@ -509,6 +821,18 @@
     {
       "type": 0,
       "value": "الشاشات"
+    }
+  ],
+  "label.search": [
+    {
+      "type": 0,
+      "value": "Search"
+    }
+  ],
+  "label.select-date": [
+    {
+      "type": 0,
+      "value": "Select date"
     }
   ],
   "label.select-website": [
@@ -541,6 +865,12 @@
       "value": "يوم واحد"
     }
   ],
+  "label.sum": [
+    {
+      "type": 0,
+      "value": "Sum"
+    }
+  ],
   "label.tablet": [
     {
       "type": 0,
@@ -571,10 +901,22 @@
       "value": "عضو المجموعة"
     }
   ],
+  "label.team-name": [
+    {
+      "type": 0,
+      "value": "Team name"
+    }
+  ],
   "label.team-owner": [
     {
       "type": 0,
       "value": "مدير المجموعة"
+    }
+  ],
+  "label.team-websites": [
+    {
+      "type": 0,
+      "value": "Team websites"
     }
   ],
   "label.teams": [
@@ -631,10 +973,40 @@
       "value": "تغيير الإحصائيات"
     }
   ],
+  "label.total": [
+    {
+      "type": 0,
+      "value": "Total"
+    }
+  ],
+  "label.total-records": [
+    {
+      "type": 0,
+      "value": "Total records"
+    }
+  ],
   "label.tracking-code": [
     {
       "type": 0,
       "value": "كود التتبع"
+    }
+  ],
+  "label.true": [
+    {
+      "type": 0,
+      "value": "True"
+    }
+  ],
+  "label.type": [
+    {
+      "type": 0,
+      "value": "Type"
+    }
+  ],
+  "label.unique": [
+    {
+      "type": 0,
+      "value": "Unique"
     }
   ],
   "label.unique-visitors": [
@@ -647,6 +1019,24 @@
     {
       "type": 0,
       "value": "غير معروف"
+    }
+  ],
+  "label.untitled": [
+    {
+      "type": 0,
+      "value": "Untitled"
+    }
+  ],
+  "label.url": [
+    {
+      "type": 0,
+      "value": "URL"
+    }
+  ],
+  "label.urls": [
+    {
+      "type": 0,
+      "value": "URLs"
     }
   ],
   "label.user": [
@@ -667,6 +1057,12 @@
       "value": "المستخدمين"
     }
   ],
+  "label.value": [
+    {
+      "type": 0,
+      "value": "Value"
+    }
+  ],
   "label.view": [
     {
       "type": 0,
@@ -677,6 +1073,12 @@
     {
       "type": 0,
       "value": "عرض التفاصيل"
+    }
+  ],
+  "label.view-only": [
+    {
+      "type": 0,
+      "value": "View only"
     }
   ],
   "label.views": [
@@ -691,6 +1093,12 @@
       "value": "الزوار"
     }
   ],
+  "label.website": [
+    {
+      "type": 0,
+      "value": "Website"
+    }
+  ],
   "label.website-id": [
     {
       "type": 0,
@@ -701,6 +1109,12 @@
     {
       "type": 0,
       "value": "المواقع"
+    }
+  ],
+  "label.window": [
+    {
+      "type": 0,
+      "value": "Window"
     }
   ],
   "label.yesterday": [
@@ -785,10 +1199,32 @@
       "value": "؟"
     }
   ],
+  "message.delete-account": [
+    {
+      "type": 0,
+      "value": "To delete this account, type "
+    },
+    {
+      "type": 1,
+      "value": "confirmation"
+    },
+    {
+      "type": 0,
+      "value": " in the box below to confirm."
+    }
+  ],
   "message.delete-website": [
     {
       "type": 0,
-      "value": "حذف الموقع"
+      "value": "To delete this website, type "
+    },
+    {
+      "type": 1,
+      "value": "confirmation"
+    },
+    {
+      "type": 0,
+      "value": " in the box below to confirm."
     }
   ],
   "message.delete-website-warning": [
@@ -849,16 +1285,48 @@
       "value": " حرف/أحرف"
     }
   ],
+  "message.new-version-available": [
+    {
+      "type": 0,
+      "value": "A new version of Umami "
+    },
+    {
+      "type": 1,
+      "value": "version"
+    },
+    {
+      "type": 0,
+      "value": " is available!"
+    }
+  ],
   "message.no-data-available": [
     {
       "type": 0,
       "value": "لا توجد بيانات متاحة."
     }
   ],
+  "message.no-event-data": [
+    {
+      "type": 0,
+      "value": "No event data is available."
+    }
+  ],
   "message.no-match-password": [
     {
       "type": 0,
       "value": "كلمة المرور غير متطابقة"
+    }
+  ],
+  "message.no-results-found": [
+    {
+      "type": 0,
+      "value": "No results were found."
+    }
+  ],
+  "message.no-team-websites": [
+    {
+      "type": 0,
+      "value": "هذه المجموعة ليس لديه اي موقع."
     }
   ],
   "message.no-teams": [
@@ -873,6 +1341,12 @@
       "value": "لا يوجد مستخدمين."
     }
   ],
+  "message.no-websites-configured": [
+    {
+      "type": 0,
+      "value": "لم تقم بإعداد اي موقع."
+    }
+  ],
   "message.page-not-found": [
     {
       "type": 0,
@@ -882,7 +1356,15 @@
   "message.reset-website": [
     {
       "type": 0,
-      "value": "اعادة تعيين الإحصائيات"
+      "value": "To reset this website, type "
+    },
+    {
+      "type": 1,
+      "value": "confirmation"
+    },
+    {
+      "type": 0,
+      "value": " in the box below to confirm."
     }
   ],
   "message.reset-website-warning": [
@@ -921,6 +1403,12 @@
     {
       "type": 0,
       "value": "لم يتم العثور على المجموعة"
+    }
+  ],
+  "message.team-websites-info": [
+    {
+      "type": 0,
+      "value": "يمكن مشاهدة الموقع من اي عضو في المجموعة."
     }
   ],
   "message.tracking-code": [
@@ -967,24 +1455,6 @@
     {
       "type": 1,
       "value": "device"
-    }
-  ],
-  "messages.no-team-websites": [
-    {
-      "type": 0,
-      "value": "هذه المجموعة ليس لديه اي موقع."
-    }
-  ],
-  "messages.no-websites-configured": [
-    {
-      "type": 0,
-      "value": "لم تقم بإعداد اي موقع."
-    }
-  ],
-  "messages.team-websites-info": [
-    {
-      "type": 0,
-      "value": "يمكن مشاهدة الموقع من اي عضو في المجموعة."
     }
   ]
 }
