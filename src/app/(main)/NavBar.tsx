@@ -60,10 +60,9 @@ export function NavBar() {
   return (
     <div className={styles.navbar}>
       <div className={styles.logo}>
-        <Icon size="lg">
+        <Icon size="xl">
           <Icons.Logo />
         </Icon>
-        <Text>umami</Text>
       </div>
       <div className={styles.links}>
         {links.map(({ url, label }) => {

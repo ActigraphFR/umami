@@ -11,11 +11,10 @@ export function Header() {
   return (
     <header className={styles.header}>
       <div>
-        <Link href="https://umami.is" target="_blank" className={styles.title}>
-          <Icon size="lg">
+        <Link href="https://actistat.fr" target="_blank" className={styles.title}>
+          <Icon size="xl">
             <Icons.Logo />
           </Icon>
-          <Text>umami</Text>
         </Link>
       </div>
       <div className={styles.buttons}>
