@@ -46,16 +46,8 @@ export function UpdateNotice({ user, config }) {
   }
 
   return createPortal(
-    <div className={styles.notice}>
-      <div className={styles.message}>
-        {formatMessage(messages.newVersionAvailable, { version: `v${latest}` })}
-      </div>
-      <div className={styles.buttons}>
-        <Button variant="primary" onClick={handleViewClick}>
-          {formatMessage(labels.viewDetails)}
-        </Button>
-        <Button onClick={handleDismissClick}>{formatMessage(labels.dismiss)}</Button>
-      </div>
+    <div>
+
     </div>,
     document.body,
   );
