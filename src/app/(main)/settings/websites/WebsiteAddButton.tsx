@@ -1,4 +1,4 @@
-import { useMessages, useModified } from 'components/hooks';
+import {useLogin, useMessages, useModified} from 'components/hooks';
 import { Button, Icon, Icons, Modal, ModalTrigger, Text, useToasts } from 'react-basics';
 import WebsiteAddForm from './WebsiteAddForm';
 
@@ -6,6 +6,7 @@ export function WebsiteAddButton({ teamId, onSave }: { teamId: string; onSave?: 
   const { formatMessage, labels, messages } = useMessages();
   const { showToast } = useToasts();
   const { touch } = useModified();
+  const { user } = useLogin();
 
   const handleSave = async () => {
     showToast({ message: formatMessage(messages.saved), variant: 'success' });
@@ -15,12 +16,7 @@ export function WebsiteAddButton({ teamId, onSave }: { teamId: string; onSave?: 
 
   return (
     <ModalTrigger>
-      <Button data-test="button-website-add" variant="primary">
-        <Icon>
-          <Icons.Plus />
-        </Icon>
-        <Text>{formatMessage(labels.addWebsite)}</Text>
-      </Button>
+        {user.isAdmin ? <Button data-test="button-website-add" variant="primary"><Icon><Icons.Plus /></Icon><Text>{formatMessage(labels.addWebsite)}</Text></Button> : ""}
       <Modal title={formatMessage(labels.addWebsite)}>
         {(close: () => void) => (
           <WebsiteAddForm teamId={teamId} onSave={handleSave} onClose={close} />
