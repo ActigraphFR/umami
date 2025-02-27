@@ -1,7 +1,7 @@
 ---
 version: '3'
 services:
-  actistat_${DOCKER_CLIENT_NAME}:
+  actistat_client:
     image: actistat-2-15-1
     container_name: actistat_${DOCKER_CLIENT_NAME}
     ports:
@@ -21,7 +21,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-  db_postgre_${DOCKER_CLIENT_NAME}:
+  db_postgre_client:
     image: postgres:15-alpine
     container_name: db_postgre_${DOCKER_CLIENT_NAME}
     environment:
@@ -36,7 +36,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-  backup_${DOCKER_CLIENT_NAME}:
+  backup_client:
     image: alpine:latest
     container_name: backup_${DOCKER_CLIENT_NAME}
     volumes:
