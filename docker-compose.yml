@@ -50,7 +50,7 @@ services:
       - db_postgre_${DOCKER_CLIENT_NAME}
     restart: always
     command: |
-      sh -c 'echo "0 3 * * * pg_dump -h dbpostgresql_${DOCKER_CLIENT_NAME} -U ${POSTGRES_USER} -d ${POSTGRES_DB} | gzip > /backups/backup_$(date +\%F).sql.gz && find /backups -type f -mtime +7 -delete" | crontab - && crond -f -l 2'
+      sh -c 'echo "0 3 * * * pg_dump -h dbpostgresql_${DOCKER_CLIENT_NAME} -U ${DOCKER_CLIENT_NAME} -d ${DOCKER_CLIENT_NAME} | gzip > /backups/backup_$(date +\%F).sql.gz && find /backups -type f -mtime +7 -delete" | crontab - && crond -f -l 2'
 
 volumes:
-  actistat-db-data_${DOCKER_CLIENT_NAME}:
+  actistat-db-data_setram:
