@@ -1,37 +1,56 @@
 ---
 version: '3'
 services:
-  umami:
-    image: ghcr.io/umami-software/umami:postgresql-latest
+  actistat_${DOCKER_CLIENT_NAME}:
+    image: actistat-2-15-1
+    container_name: actistat_${DOCKER_CLIENT_NAME}
     ports:
-      - "3000:3000"
+      - "${DOCKER_PORT}:3000"
     environment:
-      DATABASE_URL: postgresql://umami:umami@db:5432/umami
+      DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db:5432/${DOCKER_CLIENT_NAME}
       DATABASE_TYPE: postgresql
-      APP_SECRET: replace-me-with-a-random-string
+      APP_SECRET: ${DOCKER_APP_SECRET}
+      TRACKER_SCRIPT_NAME: "umami"
     depends_on:
       db:
         condition: service_healthy
     init: true
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "curl http://localhost:3000/api/heartbeat"]
+      test: ["CMD-SHELL", "curl http://localhost:${DOCKER_PORT}/api/heartbeat"]
       interval: 5s
       timeout: 5s
       retries: 5
-  db:
+  db_postgre_${DOCKER_CLIENT_NAME}:
     image: postgres:15-alpine
+    container_name: db_postgre_${DOCKER_CLIENT_NAME}
     environment:
-      POSTGRES_DB: umami
-      POSTGRES_USER: umami
+      POSTGRES_DB: ${DOCKER_CLIENT_NAME}
+      POSTGRES_USER: ${DOCKER_CLIENT_NAME}
       POSTGRES_PASSWORD: umami
     volumes:
-      - umami-db-data:/var/lib/postgresql/data
+      - actistat-db-data_${DOCKER_CLIENT_NAME}:/var/lib/postgresql/data
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready -U $${DOCKER_CLIENT_NAME} -d $${DOCKER_CLIENT_NAME}"]
       interval: 5s
       timeout: 5s
       retries: 5
+  backup_${DOCKER_CLIENT_NAME}:
+    image: alpine:latest
+    container_name: backup_${DOCKER_CLIENT_NAME}
+    volumes:
+      - ./backups/${DOCKER_CLIENT_NAME}:/backups
+    environment:
+      POSTGRES_DB: ${DOCKER_CLIENT_NAME}
+      POSTGRES_USER: ${DOCKER_CLIENT_NAME}
+      POSTGRES_PASSWORD: "umami"
+    entrypoint: [ "/bin/sh", "-c", "crond -f -l 2" ]
+    depends_on:
+      - db_postgre_${CLIENT_NAME}
+    restart: always
+    command: |
+      sh -c 'echo "0 3 * * * pg_dump -h dbpostgresql_${DOCKER_CLIENT_NAME} -U ${POSTGRES_USER} -d ${POSTGRES_DB} | gzip > /backups/backup_$(date +\%F).sql.gz && find /backups -type f -mtime +7 -delete" | crontab - && crond -f -l 2'
+
 volumes:
-  umami-db-data:
+  actistat-db-data_${DOCKER_CLIENT_NAME}:
