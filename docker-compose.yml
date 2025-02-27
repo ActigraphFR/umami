@@ -12,7 +12,7 @@ services:
       APP_SECRET: ${DOCKER_APP_SECRET}
       TRACKER_SCRIPT_NAME: "umami"
     depends_on:
-      db:
+      db_postgre_client:
         condition: service_healthy
     init: true
     restart: always
