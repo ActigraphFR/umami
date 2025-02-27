@@ -47,7 +47,7 @@ services:
       POSTGRES_PASSWORD: "umami"
     entrypoint: [ "/bin/sh", "-c", "crond -f -l 2" ]
     depends_on:
-      - db_postgre_${DOCKER_CLIENT_NAME}
+      - db_postgre_client
     restart: always
     command: |
       sh -c 'echo "0 3 * * * pg_dump -h dbpostgresql_${DOCKER_CLIENT_NAME} -U ${DOCKER_CLIENT_NAME} -d ${DOCKER_CLIENT_NAME} | gzip > /backups/backup_$(date +\%F).sql.gz && find /backups -type f -mtime +7 -delete" | crontab - && crond -f -l 2'
