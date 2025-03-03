@@ -2,7 +2,15 @@
 version: '3'
 services:
   actistat_client:
-    image: actistat-2-15-1
+#    image: actistat-2-15-1
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db:5432/${DOCKER_CLIENT_NAME}
+        DATABASE_TYPE: postgresql
+        APP_SECRET: ${DOCKER_APP_SECRET}
+        TRACKER_SCRIPT_NAME: "umami"
     container_name: actistat_${DOCKER_CLIENT_NAME}
     ports:
       - "${DOCKER_PORT}:3000"
