@@ -1,20 +1,27 @@
 version: '3'
+
+networks:
+  setram:
+    driver: bridge
+  aix:
+    driver: bridge
+
 services:
   actistat_client:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db_postgre:5432/${DOCKER_CLIENT_NAME}
+        DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db_postgre_${DOCKER_CLIENT_NAME}:5432/${DOCKER_CLIENT_NAME}
         DATABASE_TYPE: postgresql
         APP_SECRET: ${DOCKER_APP_SECRET}
         TRACKER_SCRIPT_NAME: "umami"
     # On utilise container_name pour avoir des noms uniques grâce aux variables
-    container_name: actistat_${DOCKER_CLIENT_NAME}_${DOCKER_INSTANCE_ID}
+    container_name: actistat_${DOCKER_CLIENT_NAME}
     ports:
       - "${DOCKER_PORT}:3000"
     environment:
-      DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db_postgre:5432/${DOCKER_CLIENT_NAME}
+      DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db_postgre_${DOCKER_CLIENT_NAME}:5432/${DOCKER_CLIENT_NAME}
       DATABASE_TYPE: postgresql
       APP_SECRET: ${DOCKER_APP_SECRET}
       TRACKER_SCRIPT_NAME: "umami"
@@ -27,10 +34,12 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - ${DOCKER_CLIENT_NAME}
 
   db_postgre:
     image: postgres:15-alpine
-    container_name: db_postgre_${DOCKER_CLIENT_NAME}_${DOCKER_INSTANCE_ID}
+    container_name: db_postgre_${DOCKER_CLIENT_NAME}
     environment:
       POSTGRES_DB: ${DOCKER_CLIENT_NAME}
       POSTGRES_USER: ${DOCKER_CLIENT_NAME}
@@ -45,12 +54,14 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - ${DOCKER_CLIENT_NAME}
 
   backup:
     image: alpine:latest
-    container_name: backup_${DOCKER_CLIENT_NAME}_${DOCKER_INSTANCE_ID}
+    container_name: backup_${DOCKER_CLIENT_NAME}
     volumes:
-      - ./backups/${DOCKER_CLIENT_NAME}_${DOCKER_INSTANCE_ID}:/backups
+      - ./backups/${DOCKER_CLIENT_NAME}:/backups
     environment:
       POSTGRES_DB: ${DOCKER_CLIENT_NAME}
       POSTGRES_USER: ${DOCKER_CLIENT_NAME}
@@ -59,7 +70,27 @@ services:
       - db_postgre
     restart: always
     command: >
-      /bin/sh -c 'apk add --no-cache postgresql-client && echo "00 3 * * * PGPASSWORD=\"umami\" pg_dump -h db_postgre -p 5432 -U ${DOCKER_CLIENT_NAME} -d ${DOCKER_CLIENT_NAME} | gzip > /backups/backup_$$(date +\%F).sql.gz && find /backups -type f -mtime +7 -delete" | crontab - && crond -f -l 2'
+      /bin/sh -c 'apk add --no-cache postgresql-client && echo "00 3 * * * PGPASSWORD=\"umami\" pg_dump -h db_postgre_${DOCKER_CLIENT_NAME} -p 5432 -U ${DOCKER_CLIENT_NAME} -d ${DOCKER_CLIENT_NAME} | gzip > /backups/backup_$$(date +\%F).sql.gz && find /backups -type f -mtime +7 -delete" | crontab - && crond -f -l 2'
+    networks:
+      - ${DOCKER_CLIENT_NAME}
+
+  purge:
+    image: alpine:latest
+    container_name: purge_${DOCKER_CLIENT_NAME}
+    environment:
+      POSTGRES_HOST: db_postgre_${DOCKER_CLIENT_NAME}
+      POSTGRES_DB: ${DOCKER_CLIENT_NAME}
+      POSTGRES_USER: ${DOCKER_CLIENT_NAME}
+      POSTGRES_PASSWORD: "umami"
+    depends_on:
+      - db_postgre
+    volumes:
+      - ./purge.sh:/purge.sh
+    restart: always
+    command: >
+      /bin/sh -c "apk add --no-cache postgresql-client && chmod +x /purge.sh && echo '00 1 * * * /purge.sh' | crontab - && crond -f -l 2"
+    networks:
+      - ${DOCKER_CLIENT_NAME}
 
 volumes:
   actistat-db-data:
