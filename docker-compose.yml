@@ -1,64 +1,65 @@
----
 version: '3'
 services:
   actistat_client:
-#    image: actistat-2-15-1
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db:5432/${DOCKER_CLIENT_NAME}
+        DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db_postgre:5432/${DOCKER_CLIENT_NAME}
         DATABASE_TYPE: postgresql
         APP_SECRET: ${DOCKER_APP_SECRET}
         TRACKER_SCRIPT_NAME: "umami"
-    container_name: actistat_${DOCKER_CLIENT_NAME}
+    # On utilise container_name pour avoir des noms uniques grâce aux variables
+    container_name: actistat_${DOCKER_CLIENT_NAME}_${DOCKER_INSTANCE_ID}
     ports:
       - "${DOCKER_PORT}:3000"
     environment:
-      DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db:5432/${DOCKER_CLIENT_NAME}
+      DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db_postgre:5432/${DOCKER_CLIENT_NAME}
       DATABASE_TYPE: postgresql
       APP_SECRET: ${DOCKER_APP_SECRET}
       TRACKER_SCRIPT_NAME: "umami"
     depends_on:
-      db_postgre_client:
-        condition: service_healthy
+      - db_postgre
     init: true
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "curl http://localhost:${DOCKER_PORT}/api/heartbeat"]
+      test: [ "CMD-SHELL", "curl http://localhost:3000/api/heartbeat" ]
       interval: 5s
       timeout: 5s
       retries: 5
-  db_postgre_client:
+
+  db_postgre:
     image: postgres:15-alpine
-    container_name: db_postgre_${DOCKER_CLIENT_NAME}
+    container_name: db_postgre_${DOCKER_CLIENT_NAME}_${DOCKER_INSTANCE_ID}
     environment:
       POSTGRES_DB: ${DOCKER_CLIENT_NAME}
       POSTGRES_USER: ${DOCKER_CLIENT_NAME}
       POSTGRES_PASSWORD: umami
+    ports:
+      - "${DOCKER_PORT_DB}:5432"
     volumes:
-      - actistat-db-data_${DOCKER_CLIENT_NAME}:/var/lib/postgresql/data
+      - actistat-db-data:/var/lib/postgresql/data
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${DOCKER_CLIENT_NAME} -d $${DOCKER_CLIENT_NAME}"]
+      test: ["CMD", "pg_isready", "-U", "${DOCKER_CLIENT_NAME}"]
       interval: 5s
       timeout: 5s
       retries: 5
-  backup_client:
+
+  backup:
     image: alpine:latest
-    container_name: backup_${DOCKER_CLIENT_NAME}
+    container_name: backup_${DOCKER_CLIENT_NAME}_${DOCKER_INSTANCE_ID}
     volumes:
-      - ./backups/${DOCKER_CLIENT_NAME}:/backups
+      - ./backups/${DOCKER_CLIENT_NAME}_${DOCKER_INSTANCE_ID}:/backups
     environment:
       POSTGRES_DB: ${DOCKER_CLIENT_NAME}
       POSTGRES_USER: ${DOCKER_CLIENT_NAME}
       POSTGRES_PASSWORD: "umami"
-    entrypoint: [ "/bin/sh", "-c", "crond -f -l 2" ]
     depends_on:
-      - db_postgre_client
+      - db_postgre
     restart: always
-    command: |
-      sh -c 'echo "0 3 * * * pg_dump -h dbpostgresql_${DOCKER_CLIENT_NAME} -U ${DOCKER_CLIENT_NAME} -d ${DOCKER_CLIENT_NAME} | gzip > /backups/backup_$(date +\%F).sql.gz && find /backups -type f -mtime +7 -delete" | crontab - && crond -f -l 2'
+    command: >
+      /bin/sh -c 'apk add --no-cache postgresql-client && echo "00 3 * * * PGPASSWORD=\"umami\" pg_dump -h db_postgre -p 5432 -U ${DOCKER_CLIENT_NAME} -d ${DOCKER_CLIENT_NAME} | gzip > /backups/backup_$$(date +\%F).sql.gz && find /backups -type f -mtime +7 -delete" | crontab - && crond -f -l 2'
 
 volumes:
-  actistat-db-data_setram:
+  actistat-db-data:
