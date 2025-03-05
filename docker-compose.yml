@@ -12,18 +12,18 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db_postgre_${DOCKER_CLIENT_NAME}:5432/${DOCKER_CLIENT_NAME}
+        DATABASE_URL: postgresql://${CLIENT_NAME}:${DB_PASSWORD}@db_postgre_${CLIENT_NAME}:5432/${CLIENT_NAME}
         DATABASE_TYPE: postgresql
-        APP_SECRET: ${DOCKER_APP_SECRET}
+        APP_SECRET: ${APP_SECRET}
         TRACKER_SCRIPT_NAME: "umami"
     # On utilise container_name pour avoir des noms uniques grâce aux variables
-    container_name: actistat_${DOCKER_CLIENT_NAME}
+    container_name: actistat_${CLIENT_NAME}
     ports:
-      - "${DOCKER_PORT}:3000"
+      - "${PORT}:3000"
     environment:
-      DATABASE_URL: postgresql://${DOCKER_CLIENT_NAME}:umami@db_postgre_${DOCKER_CLIENT_NAME}:5432/${DOCKER_CLIENT_NAME}
+      DATABASE_URL: postgresql://${CLIENT_NAME}:${DB_PASSWORD}@db_postgre_${CLIENT_NAME}:5432/${CLIENT_NAME}
       DATABASE_TYPE: postgresql
-      APP_SECRET: ${DOCKER_APP_SECRET}
+      APP_SECRET: ${APP_SECRET}
       TRACKER_SCRIPT_NAME: "umami"
     depends_on:
       - db_postgre
@@ -35,53 +35,53 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - ${DOCKER_CLIENT_NAME}
+      - ${CLIENT_NAME}
 
   db_postgre:
     image: postgres:15-alpine
-    container_name: db_postgre_${DOCKER_CLIENT_NAME}
+    container_name: db_postgre_${CLIENT_NAME}
     environment:
-      POSTGRES_DB: ${DOCKER_CLIENT_NAME}
-      POSTGRES_USER: ${DOCKER_CLIENT_NAME}
-      POSTGRES_PASSWORD: umami
+      POSTGRES_DB: ${CLIENT_NAME}
+      POSTGRES_USER: ${CLIENT_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "${DOCKER_PORT_DB}:5432"
+      - "${PORT_DB}:5432"
     volumes:
       - actistat-db-data:/var/lib/postgresql/data
     restart: always
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${DOCKER_CLIENT_NAME}"]
+      test: ["CMD", "pg_isready", "-U", "${CLIENT_NAME}"]
       interval: 5s
       timeout: 5s
       retries: 5
     networks:
-      - ${DOCKER_CLIENT_NAME}
+      - ${CLIENT_NAME}
 
   backup:
     image: alpine:latest
-    container_name: backup_${DOCKER_CLIENT_NAME}
+    container_name: backup_${CLIENT_NAME}
     volumes:
-      - ./backups/${DOCKER_CLIENT_NAME}:/backups
+      - ./backups/${CLIENT_NAME}:/backups
     environment:
-      POSTGRES_DB: ${DOCKER_CLIENT_NAME}
-      POSTGRES_USER: ${DOCKER_CLIENT_NAME}
-      POSTGRES_PASSWORD: "umami"
+      POSTGRES_DB: ${CLIENT_NAME}
+      POSTGRES_USER: ${CLIENT_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     depends_on:
       - db_postgre
     restart: always
     command: >
-      /bin/sh -c 'apk add --no-cache postgresql-client && echo "00 3 * * * PGPASSWORD=\"umami\" pg_dump -h db_postgre_${DOCKER_CLIENT_NAME} -p 5432 -U ${DOCKER_CLIENT_NAME} -d ${DOCKER_CLIENT_NAME} | gzip > /backups/backup_$$(date +\%F).sql.gz && find /backups -type f -mtime +7 -delete" | crontab - && crond -f -l 2'
+      /bin/sh -c 'apk add --no-cache postgresql-client && echo "00 3 * * * PGPASSWORD=\"${DB_PASSWORD}\" pg_dump -h db_postgre_${CLIENT_NAME} -p 5432 -U ${CLIENT_NAME} -d ${CLIENT_NAME} | gzip > /backups/backup_$$(date +\%F).sql.gz && find /backups -type f -mtime +7 -delete" | crontab - && crond -f -l 2'
     networks:
-      - ${DOCKER_CLIENT_NAME}
+      - ${CLIENT_NAME}
 
   purge:
     image: alpine:latest
-    container_name: purge_${DOCKER_CLIENT_NAME}
+    container_name: purge_${CLIENT_NAME}
     environment:
-      POSTGRES_HOST: db_postgre_${DOCKER_CLIENT_NAME}
-      POSTGRES_DB: ${DOCKER_CLIENT_NAME}
-      POSTGRES_USER: ${DOCKER_CLIENT_NAME}
-      POSTGRES_PASSWORD: "umami"
+      POSTGRES_HOST: db_postgre_${CLIENT_NAME}
+      POSTGRES_DB: ${CLIENT_NAME}
+      POSTGRES_USER: ${CLIENT_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     depends_on:
       - db_postgre
     volumes:
@@ -90,7 +90,7 @@ services:
     command: >
       /bin/sh -c "apk add --no-cache postgresql-client && chmod +x /purge.sh && echo '00 1 * * * /purge.sh' | crontab - && crond -f -l 2"
     networks:
-      - ${DOCKER_CLIENT_NAME}
+      - ${CLIENT_NAME}
 
 volumes:
   actistat-db-data:
