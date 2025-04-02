@@ -5,6 +5,8 @@ networks:
     driver: bridge
   aix:
     driver: bridge
+  linead:
+    driver: bridge
 
 services:
   actistat_client:
