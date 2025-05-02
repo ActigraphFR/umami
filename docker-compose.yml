@@ -7,6 +7,8 @@ networks:
     driver: bridge
   linead:
     driver: bridge
+  grandreims:
+    driver: bridge
 
 services:
   actistat_client:
