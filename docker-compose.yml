@@ -66,6 +66,7 @@ services:
     container_name: backup_${CLIENT_NAME}
     volumes:
       - ./backups/${CLIENT_NAME}:/backups
+      - ./backup.sh:/usr/local/bin/backup.sh
     environment:
       POSTGRES_DB: ${CLIENT_NAME}
       POSTGRES_USER: ${CLIENT_NAME}
@@ -74,7 +75,11 @@ services:
       - db_postgre
     restart: always
     command: >
-      /bin/sh -c 'apk add --no-cache postgresql-client && echo "00 3 * * * PGPASSWORD=\"${DB_PASSWORD}\" pg_dump -h db_postgre_${CLIENT_NAME} -p 5432 -U ${CLIENT_NAME} -d ${CLIENT_NAME} | gzip > /backups/backup_$$(date +\%F).sql.gz && find /backups -type f -mtime +7 -delete" | crontab - && crond -f -l 2'
+      /bin/sh -c "apk add --no-cache postgresql-client && 
+      chmod +x /usr/local/bin/backup.sh && 
+      echo '00 2 * * * /usr/local/bin/backup.sh >> /var/log/cron.log 2>&1' | crontab - && 
+      touch /var/log/cron.log && 
+      crond -f -l 2"
     networks:
       - ${CLIENT_NAME}
 
