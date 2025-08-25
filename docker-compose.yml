@@ -9,6 +9,10 @@ networks:
     driver: bridge
   grandreims:
     driver: bridge
+  lisieux:
+    driver: bridge
+  azalys:
+    driver: bridge
 
 services:
   actistat_client:
