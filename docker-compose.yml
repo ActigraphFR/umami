@@ -13,6 +13,32 @@ networks:
     driver: bridge
   azalys:
     driver: bridge
+  amelys:
+    driver: bridge
+  armor:
+    driver: bridge
+  beemob:
+    driver: bridge
+  distribus:
+    driver: bridge
+  lineotim:
+    driver: bridge
+  montstmichel:
+    driver: bridge
+  moovicite:
+    driver: bridge
+  nomad:
+    driver: bridge
+  orep:
+    driver: bridge
+  rlv:
+    driver: bridge
+  tao:
+    driver: bridge
+  tuc:
+    driver: bridge
+  vitobus:
+    driver: bridge
 
 services:
   actistat_client:
