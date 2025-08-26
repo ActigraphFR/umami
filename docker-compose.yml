@@ -21,19 +21,11 @@ networks:
     driver: bridge
   distribus:
     driver: bridge
-  lineotim:
-    driver: bridge
   montstmichel:
     driver: bridge
   moovicite:
     driver: bridge
-  nomad:
-    driver: bridge
   orep:
-    driver: bridge
-  rlv:
-    driver: bridge
-  tao:
     driver: bridge
   tuc:
     driver: bridge
@@ -90,6 +82,8 @@ services:
       retries: 5
     networks:
       - ${CLIENT_NAME}
+    logging:
+      driver: "none"
 
   backup:
     image: alpine:latest
