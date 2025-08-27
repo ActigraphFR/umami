@@ -13,6 +13,8 @@ networks:
     driver: bridge
   azalys:
     driver: bridge
+  alpesm:
+    driver: bridge
   amelys:
     driver: bridge
   armor:
