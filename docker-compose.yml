@@ -70,6 +70,7 @@ services:
   db_postgre:
     image: postgres:15-alpine
     container_name: db_postgre_${CLIENT_NAME}
+    shm_size: "256mb"
     environment:
       POSTGRES_DB: ${CLIENT_NAME}
       POSTGRES_USER: ${CLIENT_NAME}
