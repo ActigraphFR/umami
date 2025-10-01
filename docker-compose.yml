@@ -94,7 +94,7 @@ services:
     image: alpine:latest
     container_name: backup_${CLIENT_NAME}
     volumes:
-      - ./backups/${CLIENT_NAME}:/backups
+      - ../actistat_docker_backups/${CLIENT_NAME}:/backups
       - ./backup.sh:/usr/local/bin/backup.sh
     environment:
       POSTGRES_DB: ${CLIENT_NAME}
