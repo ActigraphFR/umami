@@ -25,12 +25,17 @@ export function NavBar() {
     { label: formatMessage(labels.websites), url: renderTeamUrl('/websites') },
     { label: formatMessage(labels.reports), url: renderTeamUrl('/reports') },
     { label: formatMessage(labels.settings), url: renderTeamUrl('/settings') },
+    { label: 'Aide', url: '/aide' },
   ].filter(n => n);
 
   const menuItems = [
     {
       label: formatMessage(labels.dashboard),
       url: renderTeamUrl('/dashboard'),
+    },
+    {
+      label: 'Aide',
+      url: '/aide',
     },
     !cloudMode && {
       label: formatMessage(labels.settings),
