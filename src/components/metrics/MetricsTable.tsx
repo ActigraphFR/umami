@@ -1,20 +1,21 @@
 import { ReactNode, useMemo, useState } from 'react';
 import { Loading, Icon, Text, SearchField } from 'react-basics';
 import classNames from 'classnames';
-import ErrorMessage from 'components/common/ErrorMessage';
-import LinkButton from 'components/common/LinkButton';
-import { DEFAULT_ANIMATION_DURATION } from 'lib/constants';
-import { percentFilter } from 'lib/filters';
+import ErrorMessage from '@/components/common/ErrorMessage';
+import LinkButton from '@/components/common/LinkButton';
+import { DEFAULT_ANIMATION_DURATION } from '@/lib/constants';
+import { percentFilter } from '@/lib/filters';
 import {
   useNavigation,
   useWebsiteMetrics,
   useMessages,
   useLocale,
   useFormat,
-} from 'components/hooks';
-import Icons from 'components/icons';
+} from '@/components/hooks';
+import Icons from '@/components/icons';
 import ListTable, { ListTableProps } from './ListTable';
 import styles from './MetricsTable.module.css';
+import { DownloadButton } from '@/components/input/DownloadButton';
 
 export interface MetricsTableProps extends ListTableProps {
   websiteId: string;
@@ -29,6 +30,7 @@ export interface MetricsTableProps extends ListTableProps {
   searchFormattedValues?: boolean;
   showMore?: boolean;
   params?: { [key: string]: any };
+  allowDownload?: boolean;
   children?: ReactNode;
 }
 
@@ -44,6 +46,7 @@ export function MetricsTable({
   searchFormattedValues = false,
   showMore = true,
   params,
+  allowDownload = true,
   children,
   ...props
 }: MetricsTableProps) {
@@ -72,7 +75,7 @@ export function MetricsTable({
             return filter(arr);
           }, items);
         } else {
-          items = dataFilter(data);
+          items = dataFilter(items);
         }
       }
 
@@ -104,7 +107,10 @@ export function MetricsTable({
             autoFocus={true}
           />
         )}
-        {children}
+        <div className={styles.buttons}>
+          {children}
+          {allowDownload && <DownloadButton filename={type} data={filteredData} />}
+        </div>
       </div>
       {data && !error && (
         <ListTable {...(props as ListTableProps)} data={filteredData} className={className} />

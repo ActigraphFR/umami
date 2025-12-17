@@ -17,25 +17,7 @@
   gap: 10px;
   font-size: 16px;
   font-weight: 700;
-  /*min-width: 50px;*/
-}
-
-.logolink:visited {
-  color: unset;
-}
-.logolink:active {
-  color: unset;
-}
-.logolink {
-  color: unset;
-}
-
-.icon {
-  width: auto;
-}
-
-.icon svg {
-  width: 100%;
+  min-width: 0;
 }
 
 .links {

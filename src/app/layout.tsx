@@ -5,10 +5,18 @@ import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/700.css';
 import 'react-basics/dist/styles.css';
-import 'styles/index.css';
-import 'styles/variables.css';
+import '@/styles/index.css';
+import '@/styles/variables.css';
 
 export default function ({ children }) {
+  if (process.env.DISABLE_UI) {
+    return (
+      <html>
+        <body></body>
+      </html>
+    );
+  }
+
   return (
     <html lang="en" data-scroll="0">
       <head>
@@ -23,7 +31,7 @@ export default function ({ children }) {
         <meta name="theme-color" content="#2f2f2f" media="(prefers-color-scheme: dark)" />
         <meta name="robots" content="noindex,nofollow" />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>
@@ -32,7 +40,7 @@ export default function ({ children }) {
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | ActiSTAT',
-    default: 'ActiSTAT',
+    template: '%s | Umami',
+    default: 'Umami',
   },
 };
