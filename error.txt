@@ -1,0 +1,149 @@
+
+#22 [builder 6/6] RUN npm run build-docker
+#22 0.267
+#22 0.267 > umami@2.20.2 build-docker
+#22 0.267 > npm-run-all build-db build-tracker build-geo build-app
+#22 0.267
+#22 0.419
+#22 0.419 > umami@2.20.2 build-db
+#22 0.419 > npm-run-all copy-db-files build-db-client
+#22 0.419
+#22 0.558
+#22 0.558 > umami@2.20.2 copy-db-files
+#22 0.558 > node scripts/copy-db-files.js
+#22 0.558
+#22 0.613 Database type detected: postgresql
+#22 0.620 Copied /app/db/postgresql to /app/prisma
+#22 0.679
+#22 0.679 > umami@2.20.2 build-db-client
+#22 0.679 > prisma generate
+#22 0.679
+#22 1.433 Prisma schema loaded from prisma/schema.prisma
+#22 1.602 Warning: You did not specify an output path for your `generator` in schema.prisma. This behavior is deprecated and will no longer be supported in Prisma 7.0.0. To learn more visit https://pris.ly/cli/output-path
+#22 1.753
+#22 1.753 ✔ Generated Prisma Client (v6.7.0) to ./node_modules/.pnpm/@prisma+client@6.7.0_prisma@6.7.0_typescript@5.8.3__typescript@5.8.3/node_modules/@prisma/client in 109ms
+#22 1.753
+#22 1.753 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#22 1.753
+#22 1.753 Tip: Want real-time updates to your database without manual polling? Discover how with Pulse: https://pris.ly/tip-0-pulse
+#22 1.753
+#22 1.830
+#22 1.830 > umami@2.20.2 build-tracker
+#22 1.830 > rollup -c rollup.tracker.config.mjs
+#22 1.830
+#22 1.894
+#22 1.894 src/tracker/index.js → public/script.js...
+#22 2.026 created public/script.js in 133ms
+#22 2.078
+#22 2.078 > umami@2.20.2 build-geo
+#22 2.078 > node scripts/build-geo.js
+#22 2.078
+#22 3.049 Saved geo database: /app/geo/GeoLite2-City.mmdb
+#22 3.572
+#22 3.572 > umami@2.20.2 build-app
+#22 3.572 > next build
+#22 3.572
+#22 3.887    ▲ Next.js 15.5.9
+#22 3.887
+#22 3.910  ⨯ Conflicting app and page files were found, please remove the conflicting files to continue:
+#22 3.910  ⨯   "pages/api/admin/users.ts" - "app/api/admin/users/route.ts"
+#22 3.910  ⨯   "pages/api/admin/websites.ts" - "app/api/admin/websites/route.ts"
+#22 3.910  ⨯   "pages/api/auth/login.ts" - "app/api/auth/login/route.ts"
+#22 3.910  ⨯   "pages/api/auth/logout.ts" - "app/api/auth/logout/route.ts"
+#22 3.910  ⨯   "pages/api/auth/sso.ts" - "app/api/auth/sso/route.ts"
+#22 3.910  ⨯   "pages/api/auth/verify.ts" - "app/api/auth/verify/route.ts"
+#22 3.910  ⨯   "pages/api/heartbeat.ts" - "app/api/heartbeat/route.ts"
+#22 3.911  ⨯   "pages/api/me/password.ts" - "app/api/me/password/route.ts"
+#22 3.911  ⨯   "pages/api/me/index.ts" - "app/api/me/route.ts"
+#22 3.911  ⨯   "pages/api/me/teams.ts" - "app/api/me/teams/route.ts"
+#22 3.911  ⨯   "pages/api/me/websites.ts" - "app/api/me/websites/route.ts"
+#22 3.911  ⨯   "pages/api/realtime/[websiteId].ts" - "app/api/realtime/[websiteId]/route.ts"
+#22 3.911  ⨯   "pages/api/reports/[reportId].ts" - "app/api/reports/[reportId]/route.ts"
+#22 3.911  ⨯   "pages/api/reports/funnel.ts" - "app/api/reports/funnel/route.ts"
+#22 3.911  ⨯   "pages/api/reports/goals.ts" - "app/api/reports/goals/route.ts"
+#22 3.911  ⨯   "pages/api/reports/insights.ts" - "app/api/reports/insights/route.ts"
+#22 3.911  ⨯   "pages/api/reports/journey.ts" - "app/api/reports/journey/route.ts"
+#22 3.911  ⨯   "pages/api/reports/retention.ts" - "app/api/reports/retention/route.ts"
+#22 3.911  ⨯   "pages/api/reports/revenue.ts" - "app/api/reports/revenue/route.ts"
+#22 3.911  ⨯   "pages/api/reports/index.ts" - "app/api/reports/route.ts"
+#22 3.911  ⨯   "pages/api/reports/utm.ts" - "app/api/reports/utm/route.ts"
+#22 3.911  ⨯   "pages/api/send.ts" - "app/api/send/route.ts"
+#22 3.911  ⨯   "pages/api/share/[shareId].ts" - "app/api/share/[shareId]/route.ts"
+#22 3.911  ⨯   "pages/api/teams/[teamId]/index.ts" - "app/api/teams/[teamId]/route.ts"
+#22 3.911  ⨯   "pages/api/teams/[teamId]/users/[userId].ts" - "app/api/teams/[teamId]/users/[userId]/route.ts"
+#22 3.911  ⨯   "pages/api/teams/[teamId]/users/index.ts" - "app/api/teams/[teamId]/users/route.ts"
+#22 3.911  ⨯   "pages/api/teams/[teamId]/websites/index.ts" - "app/api/teams/[teamId]/websites/route.ts"
+#22 3.911  ⨯   "pages/api/teams/join.ts" - "app/api/teams/join/route.ts"
+#22 3.911  ⨯   "pages/api/teams/index.ts" - "app/api/teams/route.ts"
+#22 3.911  ⨯   "pages/api/users/[userId]/index.ts" - "app/api/users/[userId]/route.ts"
+#22 3.911  ⨯   "pages/api/users/[userId]/teams.ts" - "app/api/users/[userId]/teams/route.ts"
+#22 3.911  ⨯   "pages/api/users/[userId]/usage.ts" - "app/api/users/[userId]/usage/route.ts"
+#22 3.911  ⨯   "pages/api/users/[userId]/websites.ts" - "app/api/users/[userId]/websites/route.ts"
+#22 3.911  ⨯   "pages/api/users/index.ts" - "app/api/users/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/active.ts" - "app/api/websites/[websiteId]/active/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/daterange.ts" - "app/api/websites/[websiteId]/daterange/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/event-data/events.ts" - "app/api/websites/[websiteId]/event-data/events/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/event-data/fields.ts" - "app/api/websites/[websiteId]/event-data/fields/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/event-data/properties.ts" - "app/api/websites/[websiteId]/event-data/properties/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/event-data/stats.ts" - "app/api/websites/[websiteId]/event-data/stats/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/event-data/values.ts" - "app/api/websites/[websiteId]/event-data/values/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/events/index.ts" - "app/api/websites/[websiteId]/events/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/events/series.ts" - "app/api/websites/[websiteId]/events/series/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/metrics.ts" - "app/api/websites/[websiteId]/metrics/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/pageviews.ts" - "app/api/websites/[websiteId]/pageviews/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/reports.ts" - "app/api/websites/[websiteId]/reports/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/reset.ts" - "app/api/websites/[websiteId]/reset/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/index.ts" - "app/api/websites/[websiteId]/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/session-data/properties.ts" - "app/api/websites/[websiteId]/session-data/properties/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/session-data/values.ts" - "app/api/websites/[websiteId]/session-data/values/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/sessions/[sessionId]/activity.ts" - "app/api/websites/[websiteId]/sessions/[sessionId]/activity/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/sessions/[sessionId]/properties.ts" - "app/api/websites/[websiteId]/sessions/[sessionId]/properties/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/sessions/[sessionId]/index.ts" - "app/api/websites/[websiteId]/sessions/[sessionId]/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/sessions/index.ts" - "app/api/websites/[websiteId]/sessions/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/sessions/stats.ts" - "app/api/websites/[websiteId]/sessions/stats/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/sessions/weekly.ts" - "app/api/websites/[websiteId]/sessions/weekly/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/stats.ts" - "app/api/websites/[websiteId]/stats/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/transfer.ts" - "app/api/websites/[websiteId]/transfer/route.ts"
+#22 3.911  ⨯   "pages/api/websites/[websiteId]/values.ts" - "app/api/websites/[websiteId]/values/route.ts"
+#22 3.911  ⨯   "pages/api/websites/index.ts" - "app/api/websites/route.ts"
+#22 3.919 ERROR: "build-app" exited with 1.
+#22 3.923 npm notice
+#22 3.923 npm notice New major version of npm available! 10.9.4 -> 11.7.0
+#22 3.923 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.7.0
+#22 3.923 npm notice To update run: npm install -g npm@11.7.0
+#22 3.923 npm notice
+#22 ERROR: process "/bin/sh -c npm run build-docker" did not complete successfully: exit code: 1
+------
+ > [builder 6/6] RUN npm run build-docker:
+3.911  ⨯   "pages/api/websites/[websiteId]/stats.ts" - "app/api/websites/[websiteId]/stats/route.ts"
+3.911  ⨯   "pages/api/websites/[websiteId]/transfer.ts" - "app/api/websites/[websiteId]/transfer/route.ts"
+3.911  ⨯   "pages/api/websites/[websiteId]/values.ts" - "app/api/websites/[websiteId]/values/route.ts"
+3.911  ⨯   "pages/api/websites/index.ts" - "app/api/websites/route.ts"
+3.919 ERROR: "build-app" exited with 1.
+3.923 npm notice
+3.923 npm notice New major version of npm available! 10.9.4 -> 11.7.0
+3.923 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.7.0
+3.923 npm notice To update run: npm install -g npm@11.7.0
+3.923 npm notice
+------
+Dockerfile:25
+
+--------------------
+
+  23 |     ENV NEXT_TELEMETRY_DISABLED=1
+
+  24 |
+
+  25 | >>> RUN npm run build-docker
+
+  26 |
+
+  27 |     # Production image, copy all the files and run next
+
+--------------------
+
+failed to solve: process "/bin/sh -c npm run build-docker" did not complete successfully: exit code: 1
+
+
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/ubr514tolkefin7dix219bo8f

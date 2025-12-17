@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { httpGet } from '@/lib/fetch';
 import { setItem } from '@/lib/storage';
-import { LOCALE_CONFIG } from '@/lib/constants';
+import { LOCALE_CONFIG, DEFAULT_LOCALE } from '@/lib/constants';
 import { getDateLocale, getTextDirection } from '@/lib/lang';
 import useStore, { setLocale } from '@/store/app';
 import { useForceUpdate } from './useForceUpdate';
-import enUS from '../../../public/intl/country/en-US.json';
+import enUS from '../../../public/intl/messages/en-US.json';
+import frFR from '../../../public/intl/messages/fr-FR.json';
 
 const messages = {
   'en-US': enUS,
+  'fr-FR': frFR,
 };
 
 const selector = (state: { locale: any }) => state.locale;
@@ -20,15 +22,19 @@ export function useLocale() {
   const dateLocale = getDateLocale(locale);
 
   async function loadMessages(locale: string) {
-    const { data } = await httpGet(`${process.env.basePath || ''}/intl/messages/${locale}.json`);
-
-    messages[locale] = data;
+    try {
+      const { data } = await httpGet(`${process.env.basePath || ''}/intl/messages/${locale}.json`);
+      if (data) {
+        messages[locale] = data;
+      }
+    } catch (error) {
+      console.error(`Failed to load messages for locale: ${locale}`, error);
+    }
   }
 
   async function saveLocale(value: string) {
-    if (!messages[value]) {
-      await loadMessages(value);
-    }
+    // Toujours recharger les messages depuis le serveur pour s'assurer qu'ils sont corrects
+    await loadMessages(value);
 
     setItem(LOCALE_CONFIG, value);
 
@@ -42,8 +48,11 @@ export function useLocale() {
   }
 
   useEffect(() => {
-    if (!messages[locale]) {
-      saveLocale(locale);
+    // S'assurer que les messages sont chargés pour la locale actuelle
+    if (!messages[locale] || Object.keys(messages[locale] || {}).length === 0) {
+      loadMessages(locale).then(() => {
+        forceUpdate();
+      });
     }
   }, [locale]);
 

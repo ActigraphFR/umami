@@ -7,6 +7,20 @@
   height: 100px;
 }
 
-.footer a {
+.footerLink {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
   color: var(--font-color100);
+}
+
+.logoIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.logoIcon svg {
+  width: 32px;
+  height: 32px;
 }

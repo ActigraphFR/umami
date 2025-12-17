@@ -20,6 +20,16 @@
   min-width: 0;
 }
 
+.logoIcon {
+  width: 48px;
+  height: 48px;
+}
+
+.logoIcon svg {
+  width: 48px;
+  height: 48px;
+}
+
 .links {
   display: flex;
   flex-direction: row;

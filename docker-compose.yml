@@ -35,6 +35,8 @@ networks:
     driver: bridge
   tadao:
     driver: bridge
+  grandreimstest:
+    driver: bridge
 
 services:
   actistat_client:

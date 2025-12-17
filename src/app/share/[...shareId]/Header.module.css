@@ -17,6 +17,16 @@
   color: var(--font-color100) !important;
 }
 
+.logoIcon {
+  width: 48px;
+  height: 48px;
+}
+
+.logoIcon svg {
+  width: 48px;
+  height: 48px;
+}
+
 .buttons {
   display: flex;
   flex-direction: row;

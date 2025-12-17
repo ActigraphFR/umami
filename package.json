@@ -1,7 +1,7 @@
 {
-  "name": "umami",
+  "name": "Actistat",
   "version": "2.20.2",
-  "description": "A modern, privacy-focused alternative to Google Analytics.",
+  "description": "Une alternative à google analytics",
   "author": "Umami Software, Inc. <hello@umami.is>",
   "license": "MIT",
   "homepage": "https://umami.is",

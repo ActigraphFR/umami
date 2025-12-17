@@ -301,7 +301,7 @@
   "message.transfer-website": "Transférer la propriété du site sur votre compte ou à une autre équipe.",
   "message.triggered-event": "Évènement déclenché",
   "message.user-deleted": "Utilisateur supprimé.",
-  "message.viewed-page": "Page vue",
+  "message.viewed-page": "Page consultée",
   "message.visitor-log": "Visiteur de {country} utilisant {browser} sur {os} {device}",
   "message.visitors-dropped-off": "Visiteurs ont abandonné"
 }

@@ -1,4 +1,4 @@
-import { Icon, Text } from 'react-basics';
+import { Icon } from 'react-basics';
 import Link from 'next/link';
 import LanguageButton from '@/components/input/LanguageButton';
 import ThemeButton from '@/components/input/ThemeButton';
@@ -11,10 +11,9 @@ export function Header() {
     <header className={styles.header}>
       <div>
         <Link href="https://umami.is" target="_blank" className={styles.title}>
-          <Icon size="lg">
+          <Icon size="lg" className={styles.logoIcon}>
             <Icons.Logo />
           </Icon>
-          <Text>umami</Text>
         </Link>
       </div>
       <div className={styles.buttons}>
