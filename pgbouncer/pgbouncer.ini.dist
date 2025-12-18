@@ -1,0 +1,22 @@
+[databases]
+client = host=10.0.0.10 port=5432 dbname=client
+# etc.
+
+[pgbouncer]
+listen_addr = 0.0.0.0
+listen_port = 6432
+
+auth_type = md5
+auth_file = /etc/pgbouncer/userlist.txt
+
+pool_mode = transaction
+
+max_client_conn = 1000
+
+default_pool_size = 20
+reserve_pool_size = 10
+
+server_idle_timeout = 60
+client_idle_timeout = 600
+
+ignore_startup_parameters = extra_float_digits

@@ -1,50 +1,28 @@
 version: '3'
 
 networks:
-  setram:
-    driver: bridge
-  aix:
-    driver: bridge
-  linead:
-    driver: bridge
-  grandreims:
-    driver: bridge
-  lisieux:
-    driver: bridge
-  azalys:
-    driver: bridge
-  alpesm:
-    driver: bridge
-  amelys:
-    driver: bridge
-  armor:
-    driver: bridge
-  beemob:
-    driver: bridge
-  distribus:
-    driver: bridge
-  montstmichel:
-    driver: bridge
-  moovicite:
-    driver: bridge
-  orep:
-    driver: bridge
-  tuc:
-    driver: bridge
-  vitobus:
-    driver: bridge
-  tadao:
-    driver: bridge
-  grandreimstest:
+  backend:
     driver: bridge
 
 services:
+  pgbouncer:
+    image: edoburu/pgbouncer
+    container_name: pgbouncer_global
+    restart: always
+    ports:
+      - "127.0.0.1:6432:6432"
+    volumes:
+      - ./pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini
+      - ./pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt
+    networks:
+      - backend
+
   actistat_client:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        DATABASE_URL: postgresql://${CLIENT_NAME}:${DB_PASSWORD}@db_postgre_${CLIENT_NAME}:5432/${CLIENT_NAME}
+        DATABASE_URL: postgresql://${CLIENT_NAME}:${DB_PASSWORD}@pgbouncer_global:6432/${CLIENT_NAME}
         DATABASE_TYPE: postgresql
         APP_SECRET: ${APP_SECRET}
         TRACKER_SCRIPT_NAME: "umami"
@@ -53,12 +31,10 @@ services:
     ports:
       - "${PORT}:3000"
     environment:
-      DATABASE_URL: postgresql://${CLIENT_NAME}:${DB_PASSWORD}@db_postgre_${CLIENT_NAME}:5432/${CLIENT_NAME}
+      DATABASE_URL: postgresql://${CLIENT_NAME}:${DB_PASSWORD}@pgbouncer_global:6432/${CLIENT_NAME}
       DATABASE_TYPE: postgresql
       APP_SECRET: ${APP_SECRET}
       TRACKER_SCRIPT_NAME: "umami"
-    depends_on:
-      - db_postgre
     init: true
     restart: always
     healthcheck:
@@ -67,70 +43,4 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - ${CLIENT_NAME}
-
-  db_postgre:
-    image: postgres:15-alpine
-    container_name: db_postgre_${CLIENT_NAME}
-    shm_size: "256mb"
-    environment:
-      POSTGRES_DB: ${CLIENT_NAME}
-      POSTGRES_USER: ${CLIENT_NAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "${PORT_DB}:5432"
-    volumes:
-      - actistat-db-data:/var/lib/postgresql/data
-    restart: always
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${CLIENT_NAME}"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    networks:
-      - ${CLIENT_NAME}
-    logging:
-      driver: "none"
-
-  backup:
-    image: alpine:latest
-    container_name: backup_${CLIENT_NAME}
-    volumes:
-      - ../actistat_docker_backups/${CLIENT_NAME}:/backups
-      - ./backup.sh:/usr/local/bin/backup.sh
-    environment:
-      POSTGRES_DB: ${CLIENT_NAME}
-      POSTGRES_USER: ${CLIENT_NAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    depends_on:
-      - db_postgre
-    restart: always
-    command: >
-      /bin/sh -c "apk add --no-cache postgresql-client && 
-      chmod +x /usr/local/bin/backup.sh && 
-      echo '${CRON_SCHEDULE} /usr/local/bin/backup.sh >> /var/log/cron.log 2>&1' | crontab - && 
-      touch /var/log/cron.log && 
-      crond -f -l 2"
-    networks:
-      - ${CLIENT_NAME}
-
-  purge:
-    image: alpine:latest
-    container_name: purge_${CLIENT_NAME}
-    environment:
-      POSTGRES_HOST: db_postgre_${CLIENT_NAME}
-      POSTGRES_DB: ${CLIENT_NAME}
-      POSTGRES_USER: ${CLIENT_NAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    depends_on:
-      - db_postgre
-    volumes:
-      - ./purge.sh:/purge.sh
-    restart: always
-    command: >
-      /bin/sh -c "apk add --no-cache postgresql-client && chmod +x /purge.sh && echo '00 1 * * * /purge.sh' | crontab - && crond -f -l 2"
-    networks:
-      - ${CLIENT_NAME}
-
-volumes:
-  actistat-db-data:
+      - backend
