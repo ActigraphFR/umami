@@ -42,3 +42,5 @@ yarn-error.log*
 *.dev.yml
 
 backups
+pgbouncer/pgbouncer.ini
+pgbouncer/userlist.txt
