@@ -77,7 +77,6 @@ docker logs {ID_CONTAINER} -f
 3.8G /var/lib/docker/volumes/tadao_actistat-db-data
 1.5G /var/lib/docker/volumes/montstmichel_actistat-db-data
 1.1G /var/lib/docker/volumes/amelys_actistat-db-data
-43M /var/lib/docker/volumes/monitoring_grafana-data
 1.2G /var/lib/docker/volumes/vitobus_actistat-db-data
 8.7G /var/lib/docker/volumes/setram_actistat-db-data
 944M /var/lib/docker/volumes/armor_actistat-db-data
@@ -93,4 +92,5 @@ docker logs {ID_CONTAINER} -f
 122M /var/lib/docker/volumes/alpesm_actistat-db-data
 673M /var/lib/docker/volumes/monitoring_prometheus-data
 2.8G /var/lib/docker/volumes/beemob_actistat-db-data
+
 69G /var/lib/docker/volumes/
