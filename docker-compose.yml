@@ -1,8 +1,8 @@
 version: '3'
 
 networks:
-  backend:
-    driver: bridge
+  pgbouncer:
+    external: true
 
 services:
   actistat_client:
@@ -31,4 +31,4 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - backend
+      - pgbouncer
