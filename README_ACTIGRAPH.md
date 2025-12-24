@@ -49,17 +49,18 @@ pg_restore \
 --no-privileges \
 --single-transaction \
 --exit-on-error \
--h <HOST_PRIVÉ_OVH> \
--p 5432 \
+-h postgresql-ca859161-o48146f73.database.cloud.ovh.net \
+-p 20184 \
 -U aix \
 -d aix \
 /backup/backup_aix.dump
 
-## Mise à jour du client ActiSTAT
+## Mise à jour du client ActiSTATe
 
 ### Configuration PGBouncer
 - fichier pgbouncer.ini
 aix = host=postgresql-ca859161-o48146f73.database.cloud.ovh.net port=20184 dbname=aix
+grandreims = host=postgresql-92c51209-o48146f73.database.cloud.ovh.net port=2 dbname=grandreims
 - fichier userlist.txt
 "aix" "md5{ echo -n "password + user" | md5sum }"
 
@@ -73,14 +74,14 @@ docker compose -p aix --env-file .env.aix up -d --build
 docker logs {ID_CONTAINER} -f
 
 
-34G /var/lib/docker/volumes/grandreims_actistat-db-data
-8.7G /var/lib/docker/volumes/setram_actistat-db-data
-5.3G /var/lib/docker/volumes/linead_actistat-db-data
+- 34G /var/lib/docker/volumes/grandreims_actistat-db-data
+- 8.7G /var/lib/docker/volumes/setram_actistat-db-data
+- 5.3G /var/lib/docker/volumes/linead_actistat-db-data
 - 4.0G /var/lib/docker/volumes/aix_actistat-db-data
-3.8G /var/lib/docker/volumes/tadao_actistat-db-data
-2.8G /var/lib/docker/volumes/beemob_actistat-db-data
-1.5G /var/lib/docker/volumes/montstmichel_actistat-db-data
-1.4G /var/lib/docker/volumes/azalys_actistat-db-data
+- 3.8G /var/lib/docker/volumes/tadao_actistat-db-data
+- 2.8G /var/lib/docker/volumes/beemob_actistat-db-data
+- 1.5G /var/lib/docker/volumes/montstmichel_actistat-db-data
+- 1.4G /var/lib/docker/volumes/azalys_actistat-db-data
 1.3G /var/lib/docker/volumes/tuc_actistat-db-data
 1.2G /var/lib/docker/volumes/vitobus_actistat-db-data
 1.1G /var/lib/docker/volumes/amelys_actistat-db-data
