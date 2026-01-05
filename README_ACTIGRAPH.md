@@ -67,11 +67,36 @@ grandreims = host=postgresql-92c51209-o48146f73.database.cloud.ovh.net port=2 db
 ### Relancer PGBouncer
 docker exec -it pgbouncer_global   pgbouncer -R /etc/pgbouncer/pgbouncer.ini
 
+### Mettre à jour le .env du client (ex: .env.aix)
+nano .env.aix
+
 ### Compilation + Déploiement du client à jour
 docker compose -p aix --env-file .env.aix up -d --build
 
 ### Checker les logs des containers (client + pgbouncer) pour vérifier la migration et la bonne connexion à la database
 docker logs {ID_CONTAINER} -f
+
+### Ajouter CORS apache du client
+    <IfModule mod_headers.c>
+        Header always set Access-Control-Allow-Origin "https://"
+        Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+        Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+        Header always set Access-Control-Allow-Credentials "true"
+    </IfModule>
+
+
+OU si plusieurs DNS avec www : 
+
+    <IfModule mod_headers.c>
+        SetEnvIf Origin "^https://(www\.)?grandreims-mobilites\.fr$" CORS_ALLOW_ORIGIN=$0
+     </IfModule>
+
+     <IfModule mod_headers.c>
+        Header always set Access-Control-Allow-Origin "%{CORS_ALLOW_ORIGIN}e" env=CORS_ALLOW_ORIGIN
+        Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+        Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+        Header always set Access-Control-Allow-Credentials "true"
+    </IfModule>
 
 
 - 34G /var/lib/docker/volumes/grandreims_actistat-db-data
@@ -82,15 +107,12 @@ docker logs {ID_CONTAINER} -f
 - 2.8G /var/lib/docker/volumes/beemob_actistat-db-data
 - 1.5G /var/lib/docker/volumes/montstmichel_actistat-db-data
 - 1.4G /var/lib/docker/volumes/azalys_actistat-db-data
-1.3G /var/lib/docker/volumes/tuc_actistat-db-data
-1.2G /var/lib/docker/volumes/vitobus_actistat-db-data
-1.1G /var/lib/docker/volumes/amelys_actistat-db-data
-984M /var/lib/docker/volumes/lisieux_actistat-db-data
-944M /var/lib/docker/volumes/armor_actistat-db-data
-673M /var/lib/docker/volumes/monitoring_prometheus-data
-535M /var/lib/docker/volumes/distribus_actistat-db-data
-302M /var/lib/docker/volumes/orep_actistat-db-data
-183M /var/lib/docker/volumes/moovicite_actistat-db-data
-122M /var/lib/docker/volumes/alpesm_actistat-db-data
+- 1.3G /var/lib/docker/volumes/tuc_actistat-db-data
+- 984M /var/lib/docker/volumes/lisieux_actistat-db-data
+- 944M /var/lib/docker/volumes/armor_actistat-db-data
+- 535M /var/lib/docker/volumes/distribus_actistat-db-data
+- 302M /var/lib/docker/volumes/orep_actistat-db-data
+- 183M /var/lib/docker/volumes/moovicite_actistat-db-data
+- 122M /var/lib/docker/volumes/alpesm_actistat-db-data
 
 69G /var/lib/docker/volumes/
