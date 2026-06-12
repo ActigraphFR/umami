@@ -4,6 +4,7 @@ ignoredBuiltDependencies:
   - cypress
   - esbuild
   - sharp
+  - unrs-resolver
 onlyBuiltDependencies:
   - '@prisma/client'
   - '@prisma/engines'
