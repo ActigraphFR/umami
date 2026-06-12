@@ -9,6 +9,9 @@
     "type": "git",
     "url": "https://github.com/umami-software/umami.git"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": ["prisma", "@prisma/engines", "@prisma/client", "esbuild"]
+  },
   "scripts": {
     "dev": "next dev",
     "dev-turbo": "next dev -p 3000 --turbopack",
