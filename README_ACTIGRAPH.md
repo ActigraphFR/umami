@@ -73,6 +73,9 @@ nano .env.aix
 ### Compilation + Déploiement du client à jour
 docker compose -p aix --env-file .env.aix up -d --build
 
+### ATTENTION problème compatibilité MD5 -> SCRAM-SHA-256 sur le serveur PostgreSQL 15
+SET password_encryption='md5'; ALTER ROLE optibus PASSWORD '…';
+
 ### Checker les logs des containers (client + pgbouncer) pour vérifier la migration et la bonne connexion à la database
 docker logs {ID_CONTAINER} -f
 
