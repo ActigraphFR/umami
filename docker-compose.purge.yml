@@ -1,0 +1,36 @@
+version: '3'
+
+# Purge centralisée des données de plus de 2 ans 2 mois, pour tous les clients (.env.<client>).
+# Lancement : docker compose -f docker-compose.purge.yml -p actistat_purge up -d
+# Dry-run   : docker compose -f docker-compose.purge.yml -p actistat_purge run --rm -e DRY_RUN=1 purge sh /purge.sh
+
+networks:
+  pgbouncer:
+    external: true
+
+services:
+  purge:
+    # Image officielle : psql + crond (busybox) + tzdata déjà présents, aucun apk add au démarrage
+    image: postgres:15-alpine
+    container_name: actistat_purge
+    environment:
+      TZ: Europe/Paris
+      ENV_DIR: /envs
+      PGB_HOST: pgbouncer_global
+      PGB_PORT: 6432
+      RETENTION: 2 years 2 months
+      BATCH_SIZE: 10000
+      DRY_RUN: 0
+    volumes:
+      - ./:/envs:ro
+      - ./purge.sh:/purge.sh:ro
+    init: true
+    restart: always
+    entrypoint: []
+    # crond ne transmet pas l'environnement du conteneur aux tâches : on le sauvegarde et on le recharge
+    command: >
+      /bin/sh -c "export -p > /tmp/purge.env &&
+      echo '0 1 * * * . /tmp/purge.env && /bin/sh /purge.sh >> /proc/1/fd/1 2>&1' | crontab - &&
+      crond -f -l 2"
+    networks:
+      - pgbouncer
