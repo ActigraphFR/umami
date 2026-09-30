@@ -1,6 +1,6 @@
 version: '3'
 
-# Backup quotidien (3h) de tous les clients (.env.<client>) dans backups/<client>/, 5 derniers conservés.
+# Backup quotidien (1h, avant la purge de 2h) de tous les clients (.env.<client>) dans backups/<client>/, 5 derniers conservés.
 # Lancement     : docker compose -f docker-compose.backup.yml -p actistat_backup up -d
 # Backup manuel : docker compose -f docker-compose.backup.yml -p actistat_backup run --rm backup sh /backup.sh
 
@@ -30,7 +30,7 @@ services:
     # crond ne transmet pas l'environnement du conteneur aux tâches : on le sauvegarde et on le recharge
     command: >
       /bin/sh -c "export -p > /tmp/backup.env &&
-      echo '0 3 * * * . /tmp/backup.env && /bin/sh /backup.sh >> /proc/1/fd/1 2>&1' | crontab - &&
+      echo '0 1 * * * . /tmp/backup.env && /bin/sh /backup.sh >> /proc/1/fd/1 2>&1' | crontab - &&
       crond -f -l 2"
     networks:
       - pgbouncer
