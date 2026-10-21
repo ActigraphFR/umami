@@ -5,3 +5,9 @@ Dockerfile
 .DS_Store
 node_modules
 .idea
+# Données et secrets : ne jamais envoyer dans le contexte de build
+backups
+.env.*
+pgbouncer/pgbouncer.ini
+pgbouncer/userlist.txt
+PENDING.md
